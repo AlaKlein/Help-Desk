@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>klein.ala</groupId>
-    <artifactId>TicketSystem</artifactId>
+    <artifactId>HelpDesk</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>TicketSystem</name>
+    <name>HelpDesk</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
