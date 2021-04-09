@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entidade;
+package Entity;
 
 /**
  *
  * @author Klein
  */
 public class User {
-    
+
     int id;
     String email;
     String name;
     String password;
-    char status;
+    String status;
 
     public int getId() {
         return id;
@@ -49,11 +49,11 @@ public class User {
         this.password = password;
     }
 
-    public char getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

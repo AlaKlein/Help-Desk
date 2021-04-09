@@ -5,9 +5,9 @@
  */
 package DAO;
 
-import Apoio.DBConection;
-import Apoio.IDAO;
-import Entidade.User;
+import Useful.DBConection;
+import Useful.IDAO;
+import Entity.User;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -98,7 +98,8 @@ public class UserDAO implements IDAO<User> {
                 u.setId(resultado.getInt("id"));
                 u.setEmail(resultado.getString("email"));
                 u.setName(resultado.getString("name"));
-                u.setStatus(resultado.getString("status").charAt(0));
+                u.setPassword(resultado.getString("password"));
+                u.setStatus(resultado.getString("status"));
 
                 users.add(u);
             }
@@ -130,7 +131,8 @@ public class UserDAO implements IDAO<User> {
                 u.setId(resultado.getInt("id"));
                 u.setEmail(resultado.getString("email"));
                 u.setName(resultado.getString("name"));
-                u.setStatus(resultado.getString("status").charAt(0));
+                u.setPassword(resultado.getString("password"));
+                u.setStatus(resultado.getString("status"));
 
                 Users.add(u);
             }
@@ -162,7 +164,8 @@ public class UserDAO implements IDAO<User> {
                 u.setId(resultado.getInt("id"));
                 u.setEmail(resultado.getString("email"));
                 u.setName(resultado.getString("name"));
-                u.setStatus(resultado.getString("status").charAt(0));
+                u.setPassword(resultado.getString("password"));
+                u.setStatus(resultado.getString("status"));
             }
 
         } catch (SQLException e) {

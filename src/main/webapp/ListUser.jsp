@@ -4,11 +4,10 @@
     Author     : Klein
 --%>
 
-<%@page import="Entidade.User"%>
-<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Entity.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.UserDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +16,7 @@
     </head>
     <body>
         <h1>User Listing</h1>
-        <%    
+        <%
             ArrayList<User> users = new UserDAO().consultarTodos();
         %>
         <div class="table-responsive">
@@ -26,13 +25,14 @@
                 <th>Email</th>
                 <th>Name</th>
                 <th>Status</th>
-                    <%            
-                        for (int i = 0; i < users.size(); i++) {
-                            User u = users.get(i);
-                    %>
+
+                <%
+                    for (int i = 0; i < users.size(); i++) {
+                        User u = users.get(i);
+                %>
                 <tr>
-                   <td><a href='/TicketSystem/Action?param=edUser&id=<%= u.getId()%>'><%= u.getId()%></a></td>
-                    <td><%= u.getId()%></td>
+                    <td><a href='/TicketSystem/Action?param=edUser&id=<%= u.getId()%>'><%= u.getId()%></a></td>
+<!--                    <td><%= u.getId()%></td>-->
                     <td><%= u.getEmail()%></td>
                     <td><%= u.getName()%></td>
                     <td><%= u.getStatus()%></td>

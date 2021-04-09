@@ -5,8 +5,10 @@
  */
 package Servelt;
 
+import DAO.LoginDAO;
 import DAO.UserDAO;
-import Entidade.User;
+import Entity.User;
+import Useful.Encoding;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -73,37 +75,16 @@ public class Action extends HttpServlet {
 
             if (user != null) {
                 request.setAttribute("objUser", user);
-                encaminharPagina("User.jsp", request, response);
+                forwardPage("User.jsp", request, response);
             } else {
-                encaminharPagina("Error.jsp", request, response);
+                forwardPage("Error.jsp", request, response);
             }
         } else if (param.equals("exUser")) {
 
         }
 
-//        // ================= Equip ======================================        
-//        if (param.equals("edCategoria")) {
-//            String id = request.getParameter("id");
-//
-//            Categoria categ = new CategoriaDAO().consultarId(Integer.parseInt(id));
-//
-//            if (categ != null) {
-//
-//                request.setAttribute("objCategoria", categ);
-//
-//                encaminharPagina("categoria.jsp", request, response);
-//            } else {
-//                encaminharPagina("erro.jsp", request, response);
-//            }
-//        }
-        // =================== LOGIN ===================================
-//        if (param.equals("logout")) {
-//            System.out.println("LOGOUTTTTTT");
-//            HttpSession sessao = request.getSession();
-//            sessao.invalidate();
-//            response.sendRedirect("login.jsp");
-//        }
-//    }
+        // ================= Equipment ======================================        
+        //       To do
     }
 
     /**
@@ -130,8 +111,8 @@ public class Action extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String email = request.getParameter("email");
             String UserName = request.getParameter("name");
-            String password = request.getParameter("password");
-            String status = request.getParameter("status");
+            String password = Encoding.encodeToMD5(request.getParameter("password"));
+            String status = request.getParameter("status").trim();
 
             User u = new User();
 
@@ -139,7 +120,7 @@ public class Action extends HttpServlet {
             u.setEmail(email);
             u.setName(UserName);
             u.setPassword(password);
-            u.setStatus(status.charAt(0));
+            u.setStatus(status);
 
             //call save method and wait return
             String ret = null;
@@ -154,68 +135,34 @@ public class Action extends HttpServlet {
                 request.setAttribute("registerType", "User");
                 request.setAttribute("returnPage", "User.jsp");
 
-                encaminharPagina("User.jsp", request, response);
+                forwardPage("User.jsp", request, response);
             } else {
                 // Error
-                encaminharPagina("Error.jsp", request, response);
+                forwardPage("Error.jsp", request, response);
             }
         }
 
-        // ================= CATEGORIA ======================================
-//        if (param.equals("salvarCategoria")) {
-//            // capturar dados que vieram do REQUEST
-//            int id = Integer.parseInt(request.getParameter("id"));
-//            String descricao = request.getParameter("descricao");
-//            String situacao = request.getParameter("situacao");
-//
-//            // validacoes dos campos - não farei
-//            // criar OBJ do tipo que será salvo
-//            Categoria c = new Categoria();
-//            c.setId(id);
-//            c.setDescricao(descricao);
-//            c.setSituacao(situacao.charAt(0));
-//
-//            // chamar o salvar e aguardar o ret
-//            String ret = null;
-//            if (id == 0) {
-//                ret = new CategoriaDAO().salvar(c);
-//            } else {
-//                ret = new CategoriaDAO().atualizar(c);
-//            }
-//
-//            if (ret == null) {
-//                // deu certo
-//                request.setAttribute("tipoCadastro", "Categoria");
-//                request.setAttribute("paginaRetorno", "categoria.jsp");
-//
-//                encaminharPagina("sucesso.jsp", request, response);
-//            } else {
-//                // deu errado
-//                encaminharPagina("erro.jsp", request, response);
-//            }
-//
-//        }
-//        // ==================== LOGIN ================================
-//        if (param.equals("login")) {
-//            // ignorando autenticacao = demo
-//            String usuario = request.getParameter("email");
-//
-//            if (usuario.equals("juca@bala.com.br")) {
-//
-//                // consulta no BD: verificar se credenciais estão ok
-//                // ...
-//                // após validar credenciais, adiciona user na Sessão
-//                HttpSession sessao = ((HttpServletRequest) request).getSession();
-//
-//                sessao.setAttribute("usuarioLogado", "juca");
-//
-//                // redirecionando para menu.jsp
-//                encaminharPagina("menu.jsp", request, response);
-//            } else {
-//                request.setAttribute("msgLogin", "erro");
-//                encaminharPagina("login.jsp", request, response);
-//            }
-//        }
+        // ================= Equipment ======================================
+        //To do
+        // ==================== LOGIN ================================
+        if (param.equals("login")) {
+
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            String a = new LoginDAO().login(email, Encoding.encodeToMD5(password));
+            System.out.println(a);
+            if (a.equals("Success")) {
+                HttpSession sessao = ((HttpServletRequest) request).getSession();
+                sessao.setAttribute("usuarioLogado", email);
+                // redirecionando para User.jsp
+                forwardPage("User.jsp", request, response);
+            } else {
+                request.setAttribute("msgLogin", "Error");
+                request.setAttribute("ErrorMessage", a);
+                forwardPage("Login.jsp", request, response);
+            }
+        }
     }
 
     /**
@@ -228,12 +175,12 @@ public class Action extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void encaminharPagina(String pagina, HttpServletRequest request, HttpServletResponse response) {
+    private void forwardPage(String pagina, HttpServletRequest request, HttpServletResponse response) {
         try {
             RequestDispatcher rd = request.getRequestDispatcher(pagina);
             rd.forward(request, response);
         } catch (Exception e) {
-            System.out.println("Erro ao encaminhar: " + e);
+            System.out.println("Error while forwarding page: " + e);
         }
     }
 }
