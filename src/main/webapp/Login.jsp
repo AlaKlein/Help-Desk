@@ -34,14 +34,14 @@
     <body class="text-center">
 
         <main class="form-signin">
-            <form method="post" action="/TicketSystem/Action?param=login"> 
+            <form method="post" action="/HelpDesk/Action?param=login"> 
                 <form>
                     <h2>Help desk</h2>
                     <img class="mb-4" src="Img/LoginLogo.png" alt="" width="126" height="126">
                     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
                     <div class="form-floating">
-                        <input type="email" name="email" required class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="email" name="email" required class="form-control" id="floatingInput" placeholder="name@example.com" autofocus="">
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div class="form-floating">
@@ -68,11 +68,11 @@
                         }
                     %>
                     
-                    <div class="checkbox mb-3">
+<!--                    <div class="checkbox mb-3">
                         <label>
                             <input type="checkbox" value="remember-me"> Remember me
                         </label>
-                    </div>
+                    </div>-->
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
                 </form>
         </main>

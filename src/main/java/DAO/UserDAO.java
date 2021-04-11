@@ -62,7 +62,7 @@ public class UserDAO implements IDAO<User> {
             if (message != 0) {
                 output = null;
             } else {
-                output = "Erro";
+                output = "Error";
             }
 
         } catch (SQLException e) {
@@ -90,16 +90,16 @@ public class UserDAO implements IDAO<User> {
                     + "FROM user "
                     + "ORDER BY id";
 
-            ResultSet resultado = st.executeQuery(sql);
+            ResultSet result = st.executeQuery(sql);
 
-            while (resultado.next()) {
+            while (result.next()) {
                 User u = new User();
 
-                u.setId(resultado.getInt("id"));
-                u.setEmail(resultado.getString("email"));
-                u.setName(resultado.getString("name"));
-                u.setPassword(resultado.getString("password"));
-                u.setStatus(resultado.getString("status"));
+                u.setId(result.getInt("id"));
+                u.setEmail(result.getString("email"));
+                u.setName(result.getString("name"));
+                u.setPassword(result.getString("password"));
+                u.setStatus(result.getString("status"));
 
                 users.add(u);
             }
@@ -120,19 +120,19 @@ public class UserDAO implements IDAO<User> {
 
             String sql = "SELECT * "
                     + "FROM user "
-                    + "WHERE email ilike '%" + criteria + "%' "
-                    + "order by descricao";
+                    + "WHERE email LIKE '%" + criteria + "%' "
+                    + "order by id";
 
-            ResultSet resultado = st.executeQuery(sql);
+            ResultSet result = st.executeQuery(sql);
 
-            while (resultado.next()) {
+            while (result.next()) {
                 User u = new User();
 
-                u.setId(resultado.getInt("id"));
-                u.setEmail(resultado.getString("email"));
-                u.setName(resultado.getString("name"));
-                u.setPassword(resultado.getString("password"));
-                u.setStatus(resultado.getString("status"));
+                u.setId(result.getInt("id"));
+                u.setEmail(result.getString("email"));
+                u.setName(result.getString("name"));
+                u.setPassword(result.getString("password"));
+                u.setStatus(result.getString("status"));
 
                 Users.add(u);
             }
@@ -156,16 +156,16 @@ public class UserDAO implements IDAO<User> {
                     + "user "
                     + "WHERE id = " + id;
 
-            ResultSet resultado = st.executeQuery(sql);
+            ResultSet result = st.executeQuery(sql);
 
-            while (resultado.next()) {
+            while (result.next()) {
                 u = new User();
 
-                u.setId(resultado.getInt("id"));
-                u.setEmail(resultado.getString("email"));
-                u.setName(resultado.getString("name"));
-                u.setPassword(resultado.getString("password"));
-                u.setStatus(resultado.getString("status"));
+                u.setId(result.getInt("id"));
+                u.setEmail(result.getString("email"));
+                u.setName(result.getString("name"));
+                u.setPassword(result.getString("password"));
+                u.setStatus(result.getString("status"));
             }
 
         } catch (SQLException e) {

@@ -5,8 +5,11 @@
  */
 package Servelt;
 
+import DAO.EquipmentDAO;
 import DAO.LoginDAO;
 import DAO.UserDAO;
+import Entity.Equipment;
+import Entity.LoggedUser;
 import Entity.User;
 import Useful.Encoding;
 import java.io.IOException;
@@ -83,8 +86,34 @@ public class Action extends HttpServlet {
 
         }
 
-        // ================= Equipment ======================================        
-        //       To do
+        // ================= Equipment ======================================
+        if (param.equals("edEquipment")) {
+            String id = request.getParameter("id");
+            System.out.println("ID to edit: " + id);
+            Equipment equip = new EquipmentDAO().consultarId(Integer.parseInt(id));
+
+            if (equip != null) {
+                request.setAttribute("objEquipment", equip);
+                forwardPage("Equipment.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
+        } else if (param.equals("exEquipment")) {
+            String id = request.getParameter("id");
+            Equipment equip = new EquipmentDAO().consultarId(Integer.parseInt(id));
+            System.out.println("ID to delete: " + id);
+            if (equip != null) {
+                new EquipmentDAO().excluir(Integer.parseInt(id));
+                forwardPage("Equipment.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
+        }
+        if (param.equals("logout")) {
+            HttpSession sessao = request.getSession();
+            sessao.invalidate();
+            response.sendRedirect("Login.jsp");
+        }
     }
 
     /**
@@ -143,7 +172,50 @@ public class Action extends HttpServlet {
         }
 
         // ================= Equipment ======================================
-        //To do
+        if (param.equals("saveEquipment")) {
+            String userName = request.getParameter("UserName");
+            System.out.println("User Name: " + userName);
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String model = request.getParameter("model");
+            String type = request.getParameter("type");
+            String vendor = request.getParameter("vendor");
+            String serialNumber = request.getParameter("serialNumber");
+            String status = request.getParameter("status");
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
+
+            Equipment eq = new Equipment();
+
+            eq.setId(id);
+            eq.setName(name);
+            eq.setModel(model);
+            eq.setType(type);
+            eq.setVendor(vendor);
+            eq.setSerialNumber(serialNumber);
+            eq.setStatus(status);
+            eq.setUser_id(user_id);
+
+            //call save method and wait return
+            String ret = null;
+            if (id == 0) {
+                ret = new EquipmentDAO().salvar(eq);
+            } else {
+                ret = new EquipmentDAO().atualizar(eq);
+            }
+
+            if (ret == null) {
+                // OK
+                request.setAttribute("registerType", "Equipment");
+                request.setAttribute("returnPage", "Equipment.jsp");
+
+                forwardPage("Equipment.jsp", request, response);
+            } else {
+                // Error
+                forwardPage("Error.jsp", request, response);
+            }
+        }
+
         // ==================== LOGIN ================================
         if (param.equals("login")) {
 
@@ -154,15 +226,36 @@ public class Action extends HttpServlet {
             System.out.println(a);
             if (a.equals("Success")) {
                 HttpSession sessao = ((HttpServletRequest) request).getSession();
-                sessao.setAttribute("usuarioLogado", email);
+                sessao.setAttribute("loggedUser", LoggedUser.getEmail());
+                System.out.println("Logged User: Id: " + LoggedUser.getId() + " Email: " + LoggedUser.getEmail());
                 // redirecionando para User.jsp
-                forwardPage("User.jsp", request, response);
+                forwardPage("Menu.jsp", request, response);
             } else {
                 request.setAttribute("msgLogin", "Error");
                 request.setAttribute("ErrorMessage", a);
                 forwardPage("Login.jsp", request, response);
             }
         }
+
+        //ComboBox
+        if (param.equals("comboUser")) {
+            String param2 = request.getParameter("param");
+            System.out.println("Valor do Select: " + param2);
+        }
+
+        //SearchBoxUser
+        if (param.equals("SearchBox")) {
+            String criteria = request.getParameter("criteria");
+            request.setAttribute("criteria", criteria);
+            forwardPage("User.jsp", request, response);
+        }
+        //SearchBoxEquipment
+        if (param.equals("SearchBoxEquipment")) {
+            String criteria = request.getParameter("criteria");
+            request.setAttribute("criteria", criteria);
+            forwardPage("Equipment.jsp", request, response);
+        }
+
     }
 
     /**
