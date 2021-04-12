@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Equipment CRUD</title>
 
-        <script language="JavaScript" src="js/Validate.js"></script>
+        <script language="JavaScript" src="Js/Validate.js"></script>
     </head>
     <link href="CSS\equipment.css" rel="stylesheet">
     <%@include file="Menu.jsp" %>
@@ -37,31 +37,31 @@
             %>
             <h2>Add Equipment</h2>
 
-            <form name='Equipmentform' method='post' action='/HelpDesk/Action?param=saveEquipment' onSubmit="return validateData();">
+            <form name='Equipmentform' method='post' action='/HelpDesk/Action?param=saveEquipment' onSubmit="return validateDataEquipment();">
                 <input type="hidden" name="id" value="<%= eq.getId()%>">
                 <div>
                     <label for="Name">Name</label>
-                    <input type='text' name='name' required value='<%= eq.getName()%>'>
+                    <input class="formInput" type='text' name='name' value='<%= eq.getName()%>'>
                 </div>
                 <br>
                 <div>
                     <label for="Model">Model</label>
-                    <input type='text' name='model' required value='<%= eq.getModel()%>'>
+                    <input class="formInput" type='text' name='model' value='<%= eq.getModel()%>'>
                 </div>
                 <br>
                 <div>
                     <label for="Type">Type</label>
-                    <input type='text' name='type' required value='<%= eq.getType()%>'>
+                    <input class="formInput" type='text' name='type' value='<%= eq.getType()%>'>
                 </div>
                 <br>
                 <div>
                     <label for="Vendor">Vendor</label>
-                    <input type='text' name='vendor' required value='<%= eq.getVendor()%>'>
+                    <input class="formInput" type='text' name='vendor' value='<%= eq.getVendor()%>'>
                 </div>
                 <br>
                 <div>
                     <label for="SerialNumber">Serial Number</label>
-                    <input type='text' name='serialNumber' required value='<%= eq.getSerialNumber()%>'>
+                    <input class="formInput" type='text' name='serialNumber' value='<%= eq.getSerialNumber()%>'>
                 </div>
                 <br>
                 <div>
@@ -86,14 +86,11 @@
                     </select>
 
                     <input type="hidden" name="user_id" value="<%= LoggedUser.getId()%>">
-                    </form
                 </div>
                 <br>
-                <br>
-                <input type='submit' value='Save'>
+                <!--<input type='submit' value='Save'>-->
+                <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
             </form>
-
-
             <%@include file="ListEquipment.jsp" %>
         </div>
     </body>

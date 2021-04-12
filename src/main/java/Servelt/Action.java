@@ -83,7 +83,15 @@ public class Action extends HttpServlet {
                 forwardPage("Error.jsp", request, response);
             }
         } else if (param.equals("exUser")) {
-
+            String id = request.getParameter("id");
+            User user = new UserDAO().consultarId(Integer.parseInt(id));
+            System.out.println("ID to delete: " + id);
+            if (user != null) {
+                new UserDAO().excluir(Integer.parseInt(id));
+                forwardPage("User.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
         }
 
         // ================= Equipment ======================================
@@ -246,16 +254,19 @@ public class Action extends HttpServlet {
         //SearchBoxUser
         if (param.equals("SearchBox")) {
             String criteria = request.getParameter("criteria");
+            String inactive = request.getParameter("checkboxcriteria");
+            request.setAttribute("inactives", inactive);
             request.setAttribute("criteria", criteria);
             forwardPage("User.jsp", request, response);
         }
         //SearchBoxEquipment
         if (param.equals("SearchBoxEquipment")) {
             String criteria = request.getParameter("criteria");
+            String inactive = request.getParameter("checkboxcriteria");
             request.setAttribute("criteria", criteria);
+            request.setAttribute("inactives", inactive);
             forwardPage("Equipment.jsp", request, response);
         }
-
     }
 
     /**

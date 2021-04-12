@@ -24,17 +24,24 @@
 
             <input type="text" name="criteria" placeholder="Type here to search">
 
-            <input type="submit" value="Search">
+            <!--<input type="submit" value="Search"><br>-->
+            <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
 
+            <input type="checkbox" name="checkboxcriteria" value="inactives">List Inactives
         </form>
         <br>
         <%
             String criteria = request.getParameter("criteria");
+            String inactive = request.getParameter("checkboxcriteria");
             if (criteria == null) {
                 criteria = "";
             }
+            if (inactive == null) {
+                inactive = "";
+            }
             System.out.println("aquiiiii " + criteria);
-            ArrayList<Equipment> equipments = new EquipmentDAO().consultar(criteria);
+            System.out.println("inativos " + inactive);
+            ArrayList<Equipment> equipments = new EquipmentDAO().consultarr(criteria, inactive);
         %>
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -62,8 +69,8 @@
                     <td><%= equip.getSerialNumber()%></td>
                     <td><%= equip.getStatus()%></td>
                     <td><%= equip.getUser_id()%></td>
-                    <td><a href='/HelpDesk/Action?param=edEquipment&id=<%= equip.getId()%>'><span class="glyphicon">&#xe065;</span></a></td>
-                    <td><a href="/HelpDesk/Action?param=exEquipment&id=<%= equip.getId()%>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                    <td><a href='/HelpDesk/Action?param=edEquipment&id=<%= equip.getId()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>
+                    <td><a href="/HelpDesk/Action?param=exEquipment&id=<%= equip.getId()%>"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
                 </tr>
                 <%
                     }

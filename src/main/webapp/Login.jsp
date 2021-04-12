@@ -10,6 +10,7 @@
     <head>
         <title>Login to Help desk</title>
 
+        <script language="JavaScript" src="Js/Validate.js"></script>
         <!-- Bootstrap core CSS -->
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
 
@@ -34,47 +35,41 @@
     <body class="text-center">
 
         <main class="form-signin">
-            <form method="post" action="/HelpDesk/Action?param=login"> 
-                <form>
-                    <h2>Help desk</h2>
-                    <img class="mb-4" src="Img/LoginLogo.png" alt="" width="126" height="126">
-                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <form name='Loginform' method='post' action="/HelpDesk/Action?param=login"' onSubmit="return validateDataLogin();">
+                <h2>Help desk</h2>
+                <img class="mb-4" src="Img/LoginLogo.png" alt="" width="126" height="126">
+                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-                    <div class="form-floating">
-                        <input type="email" name="email" required class="form-control" id="floatingInput" placeholder="name@example.com" autofocus="">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" name="password" required class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
+                <div class="form-floating">
+                    <input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" autofocus="">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
 
-                    <%
-                        String msg = String.valueOf(request.getAttribute("msgLogin"));
-                        String ErrorMessage = String.valueOf(request.getAttribute("ErrorMessage"));
+                <%
+                    String msg = String.valueOf(request.getAttribute("msgLogin"));
+                    String ErrorMessage = String.valueOf(request.getAttribute("ErrorMessage"));
 
-                        if (msg.equals("Error") && ErrorMessage.equals("User Inactive")) {
-                    %>
-                    <p id="msgErroLogin">User Inactive!</p>
-                    <%
-                    } else if (msg.equals("Error") && ErrorMessage.equals("")) {
-                    %>
-                    <p id="msgErroLogin">Wrong E-mail or Password!</p>
-                    <%
-                    } else {
-                    %>
-                    <p id="msgErroLogin"></p>
-                    <%
-                        }
-                    %>
-                    
-<!--                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                    </div>-->
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-                </form>
+                    if (msg.equals("Error") && ErrorMessage.equals("User Inactive")) {
+                %>
+                <p id="msgErroLogin">User Inactive!</p>
+                <%
+                } else if (msg.equals("Error") && ErrorMessage.equals("")) {
+                %>
+                <p id="msgErroLogin">Wrong E-mail or Password!</p>
+                <%
+                } else {
+                %>
+                <p id="msgErroLogin"></p>
+                <%
+                    }
+                %>
+                
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            </form>
         </main>
     </body>
 </html>

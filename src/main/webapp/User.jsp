@@ -11,8 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User CRUD</title>
-        
-        <script language="JavaScript" src="js/Validate.js"></script>
+
+        <script language="JavaScript" src="Js/Validate.js"></script>
     </head>
     <link href="CSS\user.css" rel="stylesheet">
     <%@include file="Menu.jsp" %>
@@ -33,21 +33,21 @@
             %>
             <h2>Add User</h2>
 
-            <form name='Userform' method='post' action='/HelpDesk/Action?param=saveUser' onSubmit="return validateData();">
+            <form name='Userform' method='post' action='/HelpDesk/Action?param=saveUser' onSubmit="return validateDataUser();">
                 <input type="hidden" name="id" value="<%= user.getId()%>">
                 <div>
                     <label for="Email">Email</label>
-                    <input type='text' name='email' required value='<%= user.getEmail()%>'>
+                    <input class="formInput" type='text' name='email' value='<%= user.getEmail()%>'>
                 </div>
                 <br>
                 <div>
                     <label for="Name">Name</label>
-                    <input type='text' name='name' required value='<%= user.getName()%>'>
+                    <input class="formInput" type='text' name='name' value='<%= user.getName()%>'>
                 </div>
                 <br>
                 <div>
                     <label for="Password">Password</label>
-                    <input type='password' name='password' required value='<%= user.getPassword()%>'>
+                    <input class="formInput" type='password' name='password' value='<%= user.getPassword()%>'>
                 </div>
                 <br>
                 <div>
@@ -70,16 +70,13 @@
                         <%}
                         %>
                     </select>
-            </form
+                </div>
+                <br>
+                <!--<input type='submit' value='Save'>-->
+                <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
+            </form>
+
+            <%@include file="ListUser.jsp" %>
         </div>
-        <br>
-        <br>
-        <input type='submit' value='Save'>
-
-    </form>
-
-
-    <%@include file="ListUser.jsp" %>
-</div>
-</body>
+    </body>
 </html>

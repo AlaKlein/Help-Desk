@@ -75,7 +75,29 @@ public class UserDAO implements IDAO<User> {
 
     @Override
     public String excluir(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String output = null;
+        try {
+            Statement stm = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "UPDATE user "
+                    + "SET status = 'inactive' "
+                    + "WHERE id = " + id;
+
+            System.out.println("SQL: " + sql);
+
+            int message = stm.executeUpdate(sql);
+
+            if (message != 0) {
+                output = null;
+            } else {
+                output = "Error";
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while inactivating User! " + e);
+            output = e.toString();
+        }
+        return output;
     }
 
     @Override
@@ -111,17 +133,27 @@ public class UserDAO implements IDAO<User> {
         return users;
     }
 
-    @Override
-    public ArrayList<User> consultar(String criteria) {
+    public ArrayList<User> consultarr(String criteria, String inactive) {
         ArrayList<User> Users = new ArrayList();
+        String sql = "";
 
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
 
-            String sql = "SELECT * "
-                    + "FROM user "
-                    + "WHERE email LIKE '%" + criteria + "%' "
-                    + "order by id";
+            if (inactive.equals("inactives")) {
+
+                sql = "SELECT * "
+                        + "FROM user "
+                        + "WHERE email LIKE '%" + criteria + "%' "
+                        + "order by id";
+
+            } else {
+                sql = "SELECT * "
+                        + "FROM user "
+                        + "WHERE email LIKE '%" + criteria + "%' and status not like 'inactive' "
+                        + "order by id";
+
+            }
 
             ResultSet result = st.executeQuery(sql);
 
@@ -182,6 +214,11 @@ public class UserDAO implements IDAO<User> {
 
     @Override
     public boolean consultar(User o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<User> consultar(String criterio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -31,7 +31,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + " '" + eq.getType() + "',"
                     + " '" + eq.getVendor() + "',"
                     + " '" + eq.getSerialNumber() + "',"
-                    + " '" + eq.getStatus()+ "',"
+                    + " '" + eq.getStatus() + "',"
                     + " '" + eq.getUser_id() + "')";
 
             System.out.println("SQL: " + sql);
@@ -57,7 +57,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + "type = '" + eq.getType() + "', "
                     + "vendor = '" + eq.getVendor() + "', "
                     + "serial_number = '" + eq.getSerialNumber() + "', "
-                    + "user_id = '" + eq.getUser_id()+ "', "
+                    + "user_id = '" + eq.getUser_id() + "', "
                     + "status = '" + eq.getStatus() + "' "
                     + "WHERE id = " + eq.getId();
 
@@ -133,17 +133,25 @@ public class EquipmentDAO implements IDAO<Equipment> {
         return equipments;
     }
 
-    @Override
-    public ArrayList<Equipment> consultar(String criteria) {
+    public ArrayList<Equipment> consultarr(String criteria, String inactive) {
         ArrayList<Equipment> equipments = new ArrayList();
-
+        String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
+            
+            if (inactive.equals("inactives")) {
 
-            String sql = "SELECT * "
-                    + "FROM equipment "
-                    + "WHERE name LIKE '%" + criteria + "%' "
-                    + "order by id";
+                sql = "SELECT * "
+                        + "FROM equipment "
+                        + "WHERE name LIKE '%" + criteria + "%' "
+                        + "order by id";
+            } else {
+                sql = "SELECT * "
+                        + "FROM equipment "
+                        + "WHERE name LIKE '%" + criteria + "%' and status not like 'inactive' "
+                        + "order by id";
+            }
+            System.out.println("sql: " + sql);
 
             ResultSet result = st.executeQuery(sql);
 
@@ -209,6 +217,11 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
     @Override
     public boolean consultar(Equipment o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Equipment> consultar(String criterio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

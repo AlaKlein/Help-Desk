@@ -16,6 +16,6 @@
 
         <h4>Error: Problem while processing action.</h4>
 
-        <p><a href='index.jsp' >Back to menu</a></p>
+        <p><a href='Menu.jsp' >Back to menu</a></p>
     </body>
 </html>

@@ -10,12 +10,11 @@ and open the template in the editor.
 
 label {
     width:100px;
-    display: inline-block;
+    display:inline-block;
 }
 
-select option{
-  min-height:40px;
-    min-width:100px;
+select{
+    min-height:25px;
 }
 
 .page {
@@ -27,6 +26,9 @@ select option{
     margin: 0px 50px 0px 50px;
 }
 
+.formInput {
+    width: 20%;
+}
 
 
 
