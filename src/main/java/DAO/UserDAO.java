@@ -206,6 +206,30 @@ public class UserDAO implements IDAO<User> {
 
         return u;
     }
+    
+    public String seachPassword(int id) {
+        String password = "";
+
+        try {
+            Statement st = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT password "
+                    + "FROM "
+                    + "user "
+                    + "WHERE id = " + id;
+
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                 password = result.getString("password");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while listing Users by ID: " + e);
+        }
+
+        return password;
+    }
 
     @Override
     public boolean registroUnico(User o) {

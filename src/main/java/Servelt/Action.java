@@ -156,7 +156,12 @@ public class Action extends HttpServlet {
             u.setId(id);
             u.setEmail(email);
             u.setName(UserName);
-            u.setPassword(password);
+            String pw = new UserDAO().seachPassword(id);
+            if (!pw.equals("") && pw.equals(request.getParameter("password"))) {
+                u.setPassword(pw);
+            } else {
+                u.setPassword(password);
+            }
             u.setStatus(status);
 
             //call save method and wait return
