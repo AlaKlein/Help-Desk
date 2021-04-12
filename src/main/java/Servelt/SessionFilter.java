@@ -106,6 +106,8 @@ public class SessionFilter extends HttpServlet implements Filter {
         urls.add("/HelpDesk/CSS/user.css");
         urls.add("/HelpDesk/CSS/equipment.css");
         urls.add("/HelpDesk/CSS/signin.css");
+        urls.add("/HelpDesk/Img/LoginLogo.png");
+        urls.add("/HelpDesk/Js/Validate.js");
     }
 
     @Override
