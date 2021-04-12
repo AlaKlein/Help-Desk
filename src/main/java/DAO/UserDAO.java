@@ -80,7 +80,7 @@ public class UserDAO implements IDAO<User> {
             Statement stm = DBConection.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE user "
-                    + "SET status = 'inactive' "
+                    + "SET status = 'Inactive' "
                     + "WHERE id = " + id;
 
             System.out.println("SQL: " + sql);

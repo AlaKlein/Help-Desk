@@ -25,14 +25,14 @@
                 if (eq == null) {
                     eq = new Equipment();
 
-                eq.setId(0);
-                eq.setName("");
-                eq.setModel("");
-                eq.setType("");
-                eq.setVendor("");
-                eq.setSerialNumber("");
-                eq.setStatus("");
-                eq.setUser_id(0);
+                    eq.setId(0);
+                    eq.setName("");
+                    eq.setModel("");
+                    eq.setType("");
+                    eq.setVendor("");
+                    eq.setSerialNumber("");
+                    eq.setStatus("");
+                    eq.setUser_id(0);
                 }
             %>
             <h2>Add Equipment</h2>
@@ -77,10 +77,23 @@
                             System.out.println("dasuhduas " + eq.getStatus());
                             if (eq.getStatus().equals("Active")) {
                         %>
-                        <option selected="selected">Active</option>
+                        <script>
+                            function select() {
+                                document.getElementById("status").selectedIndex
+                                        = "1";
+                            }
+                            select();
+                        </script>
                         <%} else if (eq.getStatus().equals("Inactive")) {
                         %>
-                        <option selected="selected">Inactive</option>
+                        <script>
+                            function select2() {
+                                document.getElementById("status").selectedIndex
+                                        = "2";
+                            }
+                            select2();
+                        </script>
+                        </script>
                         <%}
                         %>
                     </select>

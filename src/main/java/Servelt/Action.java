@@ -75,7 +75,6 @@ public class Action extends HttpServlet {
             String id = request.getParameter("id");
             System.out.println("ID to edit: " + id);
             User user = new UserDAO().consultarId(Integer.parseInt(id));
-
             if (user != null) {
                 request.setAttribute("objUser", user);
                 forwardPage("User.jsp", request, response);
