@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author pretto
  */
-@WebFilter("/*")
+@WebFilter("/")
 public class SessionFilter extends HttpServlet implements Filter {
 
     List<String> urls = new ArrayList<>();

@@ -86,6 +86,7 @@
                 <br>
                 <!--<input type='submit' value='Save'>-->
                 <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
+                <input type="reset">
             </form>
 
             <%@include file="ListUser.jsp" %>

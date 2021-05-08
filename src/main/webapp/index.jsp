@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <%response.sendRedirect("Login.jsp");%>
+        <%response.sendRedirect("Menu.jsp");%>
         </form>
     </body>
 </html>
