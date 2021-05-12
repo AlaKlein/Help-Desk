@@ -218,14 +218,13 @@ public class EquipmentDAO implements IDAO<Equipment> {
     public byte[] generateReport() {
         try {
             Connection conn = DBConection.getInstance().getConnection();
-
+            
             JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/Reports/Equipment.jrxml"));
-
+            
             Map parameters = new HashMap();
 
-            byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
-
-            return bytes;
+            //byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
+            //return bytes;
         } catch (Exception e) {
             System.out.println("Error while generating report: " + e);
         }
