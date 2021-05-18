@@ -9,7 +9,9 @@ import Useful.DBConection;
 import Useful.IDAO;
 import Entity.Equipment;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.HashMap;
@@ -219,19 +221,16 @@ public class EquipmentDAO implements IDAO<Equipment> {
         return eq;
     }
 
-    public byte[] generateReport() {
+    public byte[] generateReport() throws IOException, URISyntaxException {
         try {
             Connection conn = DBConection.getInstance().getConnection();
-            System.out.println("antes de compilar");
-            //JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/java/Reports/Equipment.jrxml"));
 
-            System.out.println("sadsd" + this.getClass().getProtectionDomain().getCodeSource().getLocation());
-            
-            //JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/Reports/Equipment.jrxml"));
-            
-            
             //funciona
-            JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
+            // JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream("Equipment.jrxml");
+
+            JasperReport report = JasperCompileManager.compileReport(is);
 
             Map parameters = new HashMap();
 
