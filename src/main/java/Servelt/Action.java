@@ -7,13 +7,20 @@ package Servelt;
 
 import DAO.EquipmentDAO;
 import DAO.LoginDAO;
+import DAO.TicketUserDAO;
 import DAO.UserDAO;
 import Entity.Equipment;
 import Entity.LoggedUser;
+import Entity.Ticket;
 import Entity.User;
 import Useful.Encoding;
+import Useful.Format;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -116,6 +123,33 @@ public class Action extends HttpServlet {
                 forwardPage("Error.jsp", request, response);
             }
         }
+        
+        // ================= Ticket ======================================
+        if (param.equals("edTicketUser")) {
+            String id = request.getParameter("id");
+            System.out.println("ID to edit: " + id);
+            Ticket ticketUser = new TicketUserDAO().consultarId(Integer.parseInt(id));
+
+            if (ticketUser != null) {
+                request.setAttribute("objTicket", ticketUser);
+                forwardPage("TicketUser.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
+        } else if (param.equals("exTicketUser")) {
+            String id = request.getParameter("id");
+            Ticket tk = new TicketUserDAO().consultarIdd(Integer.parseInt(id));
+            System.out.println("ID to delete: " + id);
+            if (tk != null) {
+                new TicketUserDAO().excluir(Integer.parseInt(id));
+                forwardPage("TicketUser.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
+        }
+        
+        
+        // ================= Logout ======================================
         if (param.equals("logout")) {
             HttpSession sessao = request.getSession();
             sessao.invalidate();
@@ -227,6 +261,57 @@ public class Action extends HttpServlet {
                 forwardPage("Error.jsp", request, response);
             }
         }
+        
+        // ================= Ticket ======================================
+        if (param.equals("saveTicketUser")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
+            String telephone = request.getParameter("telephone");
+            int user_id = LoggedUser.getId();
+            int equipment_id = Integer.parseInt(request.getParameter("equipment_id"));
+            //String date = String.request.getParameter("date");
+            String date = Format.getDateTime();
+            //String status = request.getParameter("status");
+            String status = "Open";
+            String priority = request.getParameter("priority");
+            String atendant = request.getParameter("atendant");
+
+            Ticket t = new Ticket();
+
+            t.setId(id);
+            t.setTitle(title);
+            t.setDescription(description.trim());
+            t.setPriority(priority);
+            t.setTelephone(telephone);
+            //t.setUser_id(user_id);
+            t.setUser_id(1);
+            t.setEquipment_id(equipment_id);
+            t.setDate(date);
+            t.setStatus(status);
+            t.setAtendant(atendant);
+            
+
+            //call save method and wait return
+            String ret = null;
+            if (id == 0) {
+                ret = new TicketUserDAO().salvar(t);
+            } else {
+                ret = new TicketUserDAO().atualizar(t);
+            }
+
+            if (ret == null) {
+                // OK
+                request.setAttribute("registerType", "Ticket");
+                request.setAttribute("returnPage", "Ticket.jsp");
+
+                forwardPage("TicketUser.jsp", request, response);
+            } else {
+                // Error
+                forwardPage("Error.jsp", request, response);
+            }
+        }
 
         // ==================== LOGIN ================================
         if (param.equals("login")) {
@@ -271,6 +356,15 @@ public class Action extends HttpServlet {
             request.setAttribute("inactives", inactive);
             forwardPage("Equipment.jsp", request, response);
         }
+        //SearchBoxTicketUser
+        if (param.equals("SearchBoxTicketUser")) {
+            String criteria = request.getParameter("criteria");
+            String inactive = request.getParameter("checkboxcriteria");
+            request.setAttribute("criteria", criteria);
+            request.setAttribute("finished", inactive);
+            forwardPage("TicketUser.jsp", request, response);
+        }
+        
     }
 
     /**

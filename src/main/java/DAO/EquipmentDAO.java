@@ -8,10 +8,14 @@ package DAO;
 import Useful.DBConection;
 import Useful.IDAO;
 import Entity.Equipment;
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import static junit.framework.Assert.assertTrue;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -143,7 +147,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
         String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
-            
+
             if (inactive.equals("inactives")) {
 
                 sql = "SELECT * "
@@ -214,18 +218,26 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
         return eq;
     }
-    
+
     public byte[] generateReport() {
         try {
             Connection conn = DBConection.getInstance().getConnection();
+            System.out.println("antes de compilar");
+            //JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/java/Reports/Equipment.jrxml"));
+
+            System.out.println("sadsd" + this.getClass().getProtectionDomain().getCodeSource().getLocation());
             
-            JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/Reports/Equipment.jrxml"));
+            //JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/Reports/Equipment.jrxml"));
             
+            
+            //funciona
+            JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
+
             Map parameters = new HashMap();
 
-            //byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
-            //return bytes;
-        } catch (Exception e) {
+            byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
+            return bytes;
+        } catch (JRException e) {
             System.out.println("Error while generating report: " + e);
         }
         return null;

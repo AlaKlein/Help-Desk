@@ -151,12 +151,21 @@ public class Format {
         return dataHoje;
     }
 
-    public static String getDataHoraAtual() {
+    public static Date getDataHoraAtual() throws ParseException {
         Date now = new Date();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String dataHoje = df.format(now);
+        Date date = (Date) df.parse(dataHoje);
 
-        return dataHoje;
+        return date;
+    }
+
+    public static String getDateTime() {
+        java.util.Date dt = new java.util.Date();
+
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        String currentTime = sdf.format(dt);
+        return currentTime;
     }
 }
-
