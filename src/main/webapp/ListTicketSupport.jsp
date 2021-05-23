@@ -7,10 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Entity.Ticket"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DAO.TicketUserDAO"%>
+<%@page import="DAO.TicketSupportDAO"%>
 <!DOCTYPE html>
 <html>
-    <head>
+     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO8859-1">
         <title>Equipment</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,18 +20,31 @@
     <body>
         <h2>Ticket Listing</h2>
         <br>
-        <form method="post" action="/HelpDesk/Action?param=SearchBoxEquipment">
-
-            <input type="text" name="criteria" placeholder="Type here to search">
-
-            <!--<input type="submit" value="Search"><br>-->
-            <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
-
-            <input type="checkbox" name="checkboxcriteria" value="inactives">List Inactives
-        </form>
-        <br>
         <%
-            ArrayList<Ticket> tickets = new TicketUserDAO().consultarTodos();
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
+            String user = request.getParameter("user");
+            String atendant = request.getParameter("atendant");
+            String finished = request.getParameter("checkboxcriteria");
+            if (title == null) {
+                title = "";
+            }
+            if (description == null) {
+                description = "";
+            }
+            if (user == null) {
+                user = "";
+            }
+            if (atendant == null) {
+                atendant = "";
+            }
+            if (finished == null) {
+                finished = "";
+            }
+            
+            System.out.println("dsadsa " + atendant);
+            
+            ArrayList<Ticket> tickets = new TicketSupportDAO().consultarr(title, description, user, atendant, finished);
         %>
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -46,7 +59,6 @@
                 <th>Status</th>
                 <th>Atendant</th>
                 <th>Edit</th>
-                <th>Delete</th>
                     <%
                         for (int i = 0; i < tickets.size(); i++) {
                             Ticket tk = tickets.get(i);
@@ -57,14 +69,14 @@
                     <td><%= tk.getTitle()%></td>
                     <td><%= tk.getDescription()%></td>
                     <td><%= tk.getPriority()%></td>
-                    <td><%= tk.getUser_id()%></td>
+                    <td><%= tk.getUser_name()%></td>
                     <td><%= tk.getEquipment_id()%></td>
                     <td><%= tk.getTelephone()%></td>
                     <td><%= tk.getDate()%></td>
                     <td><%= tk.getStatus()%></td>
                     <td><%= tk.getAtendant()%></td>
-                    <td><a href='/HelpDesk/Action?param=edTicketUser&id=<%= tk.getId()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>
-                    <td><a href="/HelpDesk/Action?param=exTicketUser&id=<%= tk.getId()%>"><span class="glyphicon glyphicon glyphicon-trash"></span></a>
+                    <!--<td><a href='/HelpDesk/Action?param=edTicket&id<%= tk.getId()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>-->
+                    <td><a href='/HelpDesk/Action?param=edTicketSupport&id=<%= tk.getId()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>
                 </tr>
                 <%
                     }

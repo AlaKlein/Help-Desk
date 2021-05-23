@@ -20,29 +20,20 @@
     <link href="CSS\equipment.css" rel="stylesheet">
     <body>
         <h2>Ticket Listing</h2>
-        <br>
-        <form method="post" action="/HelpDesk/Action?param=SearchBoxTicketUser">
-
-            <input type="text" name="criteria" placeholder="Type here to search">
-
-            <!--<input type="submit" value="Search"><br>-->
-            <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
-
-            <input type="checkbox" name="checkboxcriteria" value="finished">List Finished
-        </form>
+        
         <br>
         <%
-            String criteria = request.getParameter("criteria");
-            String inactive = request.getParameter("checkboxcriteria");
+            String criteria = request.getParameter("title");
+            String finished = request.getParameter("checkboxcriteria");
             if (criteria == null) {
                 criteria = "";
             }
-            if (inactive == null) {
-                inactive = "";
+            if (finished == null) {
+                finished = "";
             }
             System.out.println("aquiiiii " + criteria);
-            System.out.println("inativos " + inactive);
-            ArrayList<Ticket> tickets = new TicketUserDAO().consultarr(criteria, inactive);
+            System.out.println("inativos " + finished);
+            ArrayList<Ticket> tickets = new TicketUserDAO().consultarr(criteria, finished);
         %>
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -68,7 +59,7 @@
                     <td><%= tk.getTitle()%></td>
                     <td><%= tk.getDescription()%></td>
                     <td><%= tk.getPriority()%></td>
-                    <td><%= tk.getUser_id()%></td>
+                    <td><%= tk.getUser_name()%></td>
                     <td><%= tk.getEquipment_id()%></td>
                     <td><%= tk.getTelephone()%></td>
                     <td><%= tk.getDate()%></td>

@@ -140,24 +140,20 @@ public class TicketSupportDAO implements IDAO<Ticket> {
         return tickets;
     }
 
-    public ArrayList<Ticket> consultarr(String criteria, String inactive) {
+    public ArrayList<Ticket> consultarr(String title, String description, String user, String atendant, String finished) {
         ArrayList<Ticket> tickets = new ArrayList();
         String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
 
-            if (inactive.equals("finished")) {
-
-                sql = "SELECT * "
-                        + "FROM ticket "
-                        + "WHERE status LIKE '%" + criteria + "%'"
-                        + "order by id";
-            } else {
-                sql = "SELECT * "
-                        + "FROM ticket "
-                        + "WHERE title LIKE '%" + criteria + "%' and status not like 'finished' "
-                        + "order by id";
-            }
+                sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
+                        + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
+                        + "ON t.user_id=u.id "
+                        + "WHERE t.title LIKE '%" + title + "%' AND t.description LIKE '%" + description + "%' "
+                        + "AND t.atendant LIKE '%" + atendant + "%' AND u.name LIKE '%" + user + "%' "
+                        + "AND t.status not like '" + finished + "' "
+                        + "ORDER BY id";
+                
             System.out.println("sql: " + sql);
 
             ResultSet result = st.executeQuery(sql);
@@ -170,6 +166,7 @@ public class TicketSupportDAO implements IDAO<Ticket> {
                 t.setDescription(result.getString("description"));
                 t.setPriority(result.getString("priority"));
                 t.setUser_id(result.getInt("user_id"));
+                t.setUser_name(result.getString("name"));
                 t.setEquipment_id(result.getInt("equipment_id"));
                 t.setTelephone(result.getString("telephone"));
                 t.setDate(result.getString("date"));
@@ -197,6 +194,8 @@ public class TicketSupportDAO implements IDAO<Ticket> {
                     + "FROM "
                     + "ticket "
                     + "WHERE id = " + id;
+            
+            System.out.println("sql: " + sql);
 
             ResultSet result = st.executeQuery(sql);
 

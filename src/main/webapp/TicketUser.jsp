@@ -15,6 +15,7 @@
         <title>JSP Page</title>
     </head>
     <link href="CSS\ticketUser.css" rel="stylesheet">
+    <script type="text/javascript" src="Js/AjaxFunctionUser.js"></script> 
     <%@include file="Menu.jsp" %>
     <body>
 
@@ -118,6 +119,25 @@
             <br>
             <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
         </form>
-        <%@include file="ListTicketUser.jsp" %>
+
+        <br>
+        <!--<form method="post" action="/HelpDesk/Action?param=SearchBoxTicketUser">-->
+        <form method="post" name="formuser" action="javascript:loadPage('ListTicketUser.jsp');">
+
+            <input type="text" name="title" placeholder="Type here to search">
+
+            <!--<input type="submit" value="Search"><br>-->
+            <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
+
+
+            <input type="checkbox" id ="checkboxcriteria" name="checkboxcriteria">List Finished
+
+        </form>
+
+        <div id="AjaxReturn">
+
+        </div>
+
+        <%--<%@include file="ListTicketUser.jsp" %>--%>
     </body>
 </html>

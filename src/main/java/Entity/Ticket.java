@@ -17,6 +17,7 @@ public class Ticket {
     String priority;
     String telephone;
     int user_id;
+    String user_name;
     int equipment_id;
     String atendant;
     String date;
@@ -102,4 +103,14 @@ public class Ticket {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+    
+    
 }

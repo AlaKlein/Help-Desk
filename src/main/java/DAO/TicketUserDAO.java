@@ -148,14 +148,16 @@ public class TicketUserDAO implements IDAO<Ticket> {
 
             if (inactive.equals("finished")) {
 
-                sql = "SELECT * "
-                        + "FROM ticket "
+                sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
+                        + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
+                        + "ON t.user_id=u.id "
                         + "WHERE status LIKE '%" + criteria + "%'"
                         + "order by id";
             } else {
-                sql = "SELECT * "
-                        + "FROM ticket "
-                        + "WHERE title LIKE '%" + criteria + "%' and status not like 'finished' "
+                sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
+                        + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
+                        + "ON t.user_id=u.id "
+                        + "WHERE title LIKE '%" + criteria + "%' and t.status not like 'finished' "
                         + "order by id";
             }
             System.out.println("sql: " + sql);
@@ -170,6 +172,7 @@ public class TicketUserDAO implements IDAO<Ticket> {
                 t.setDescription(result.getString("description"));
                 t.setPriority(result.getString("priority"));
                 t.setUser_id(result.getInt("user_id"));
+                t.setUser_name(result.getString("name"));
                 t.setEquipment_id(result.getInt("equipment_id"));
                 t.setTelephone(result.getString("telephone"));
                 t.setDate(result.getString("date"));

@@ -7,6 +7,7 @@ package Servelt;
 
 import DAO.EquipmentDAO;
 import DAO.LoginDAO;
+import DAO.TicketSupportDAO;
 import DAO.TicketUserDAO;
 import DAO.UserDAO;
 import Entity.Equipment;
@@ -123,8 +124,8 @@ public class Action extends HttpServlet {
                 forwardPage("Error.jsp", request, response);
             }
         }
-        
-        // ================= Ticket ======================================
+
+        // ================= TicketUser ======================================
         if (param.equals("edTicketUser")) {
             String id = request.getParameter("id");
             System.out.println("ID to edit: " + id);
@@ -148,7 +149,22 @@ public class Action extends HttpServlet {
             }
         }
         
+        if (param.equals("edTicketSupport")) {
+            String id = request.getParameter("id");
+            System.out.println("ID to edit: " + id);
+            Ticket ticketUser = new TicketSupportDAO().consultarId(Integer.parseInt(id));
+
+            if (ticketUser != null) {
+                request.setAttribute("objTicket", ticketUser);
+                forwardPage("TicketItem.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
+        }
+
+        // ================= TicketSupport ======================================
         
+
         // ================= Logout ======================================
         if (param.equals("logout")) {
             HttpSession sessao = request.getSession();
@@ -261,7 +277,7 @@ public class Action extends HttpServlet {
                 forwardPage("Error.jsp", request, response);
             }
         }
-        
+
         // ================= Ticket ======================================
         if (param.equals("saveTicketUser")) {
 
@@ -291,7 +307,6 @@ public class Action extends HttpServlet {
             t.setDate(date);
             t.setStatus(status);
             t.setAtendant(atendant);
-            
 
             //call save method and wait return
             String ret = null;
@@ -359,12 +374,26 @@ public class Action extends HttpServlet {
         //SearchBoxTicketUser
         if (param.equals("SearchBoxTicketUser")) {
             String criteria = request.getParameter("criteria");
-            String inactive = request.getParameter("checkboxcriteria");
+            String finished = request.getParameter("checkboxcriteria");
             request.setAttribute("criteria", criteria);
-            request.setAttribute("finished", inactive);
+            request.setAttribute("finished", finished);
             forwardPage("TicketUser.jsp", request, response);
         }
-        
+
+        if (param.equals("SearchBoxTicketSupport")) {
+            String title = request.getParameter("title");
+            String description = request.getParameter("description");
+            String user = request.getParameter("user");
+            String atendant = request.getParameter("atendant");
+            String finished = request.getParameter("checkboxcriteria");
+            request.setAttribute("title", title);
+            request.setAttribute("description", description);
+            request.setAttribute("user", user);
+            request.setAttribute("atendant", atendant);
+            request.setAttribute("finished", finished);
+            forwardPage("TicketSupport.jsp", request, response);
+        }
+
     }
 
     /**
