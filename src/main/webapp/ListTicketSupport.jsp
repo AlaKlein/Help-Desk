@@ -42,6 +42,12 @@
                 finished = "";
             }
             
+            if (finished.equals("false")) {
+                finished = "";
+            }else if (finished.equals("true")) {
+                finished = "finished";
+            }
+            
             System.out.println("dsadsa " + atendant);
             
             ArrayList<Ticket> tickets = new TicketSupportDAO().consultarr(title, description, user, atendant, finished);

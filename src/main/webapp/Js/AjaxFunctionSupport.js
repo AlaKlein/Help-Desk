@@ -24,19 +24,10 @@ function loadPage(page) {
         var param2 = form.description.value;
         var param3 = form.user.value;
         var param4 = form.atendant.value;
-        var checkbox = 'abc';
-
-
-        var a = document.getElementById('checkboxcriteria').onchange = function () {
-            alert(this.checked);
-            if (this.checked) {
-                    checkbox = "finished";
-                alert(checkbox);//aqui ele fica finished
-            }
-        };
+        var param5 = form.checkboxcriteria.checked;
         
 
-        qstr = 'title=' + escape(param1) + "&description=" + escape(param2) + "&user=" + escape(param3) + "&atendant=" + escape(param4) + "&checkboxcriteria=" + escape(checkbox);//aqui fica abc
+        qstr = 'title=' + escape(param1) + "&description=" + escape(param2) + "&user=" + escape(param3) + "&atendant=" + escape(param4) + "&checkboxcriteria=" + escape(param5);
 
 
         AjaxRequisition.send(qstr);

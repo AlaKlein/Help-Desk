@@ -28,8 +28,10 @@
             if (criteria == null) {
                 criteria = "";
             }
-            if (finished == null) {
+            if (finished.equals("false")) {
                 finished = "";
+            }else if (finished.equals("true")) {
+                finished = "finished";
             }
             System.out.println("aquiiiii " + criteria);
             System.out.println("inativos " + finished);

@@ -24,8 +24,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <link href="CSS\ticketItem.css" rel="stylesheet">
-
+    <link href="CSS\ticketItem2.css" rel="stylesheet">
+    <%@include file="Menu.jsp" %>
     <body>
 
         <%
@@ -39,17 +39,17 @@
                 t.setDate("");
                 t.setAtendant("");
                 t.setTicket_id(Integer.parseInt(request.getAttribute("ticketId").toString()));
-                
-                
             }
         %>
 
         <label for="Description">Description</label>
+
         <div>
             <form name='TicketItemform' method='post' action='/HelpDesk/Action?param=saveTicketItem'"><form name='TicketItemform' method='post' action='/HelpDesk/Action?param=saveTicketItem'">
                     <input type="hidden" name="id" value="<%= t.getId()%>">
                     <input type="hidden" name="ticket_id" value="<%= t.getTicket_id()%>">
-                    <textarea class="formInput" name="description_item" rows="4" cols="50" value="<%= t.getDescription_item()%>"></textarea>
+                    <textarea class="formInput" name="description_item" rows="4" cols="50""><%= t.getDescription_item()%></textarea>
+
                     <br>
                     <a href='TicketSupport.jsp'>Back</a>
                     <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>

@@ -21,7 +21,7 @@ function loadPage(page) {
 
         var form = document.forms['formuser'];
         var param1 = form.title.value;
-        var param2 = form.checkboxcriteria.value;
+        var param2 = form.checkboxcriteria.checked;
        
         qstr = 'title=' + escape(param1) + "&checkboxcriteria=" + escape(param2);
 
