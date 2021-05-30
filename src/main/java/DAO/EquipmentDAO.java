@@ -188,6 +188,35 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
         return equipments;
     }
+    
+     public ArrayList<Equipment> consultarChart() {
+        ArrayList<Equipment> equipments = new ArrayList();
+        String sql = "";
+        try {
+            Statement st = DBConection.getInstance().getConnection().createStatement();
+
+                sql = "SELECT e.vendor "
+                        + "FROM equipment e "
+                        + "WHERE id=1 "
+                        + "order by id";
+            System.out.println("sql: " + sql);
+
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                Equipment eq = new Equipment();
+
+                eq.setVendor(result.getString("vendor"));
+
+                equipments.add(eq);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while listing Equipments: " + e);
+        }
+
+        return equipments;
+    }
 
     @Override
     public Equipment consultarId(int id) {
