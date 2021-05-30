@@ -13,18 +13,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>TicketItem</title>
     </head>
     <link href="CSS\ticketItem2.css" rel="stylesheet">
+    <script language="JavaScript" src="Js/Validate.js"></script>
     <%@include file="Menu.jsp" %>
     <body>
 
@@ -42,18 +34,19 @@
             }
         %>
 
+
         <label for="Description">Description</label>
 
         <div>
-            <form name='TicketItemform' method='post' action='/HelpDesk/Action?param=saveTicketItem'"><form name='TicketItemform' method='post' action='/HelpDesk/Action?param=saveTicketItem'">
-                    <input type="hidden" name="id" value="<%= t.getId()%>">
-                    <input type="hidden" name="ticket_id" value="<%= t.getTicket_id()%>">
-                    <textarea class="formInput" name="description_item" rows="4" cols="50""><%= t.getDescription_item()%></textarea>
+            <form name='TicketItemform' method='post' action='/HelpDesk/Action?param=saveTicketItem' onSubmit="return validateDataTicketItem();">
+                <input type="hidden" name="id" value="<%= t.getId()%>">
+                <input type="hidden" name="ticket_id" value="<%= t.getTicket_id()%>">
+                <textarea class="formInput" name="descriptionItem" rows="4" cols="50""><%= t.getDescription_item()%></textarea>
 
-                    <br>
-                    <a href='TicketSupport.jsp'>Back</a>
-                    <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
-                    </div>
-                </form>
-                </body>
-                </html>
+                <br>
+                <a href='TicketSupport.jsp'>Back</a>
+                <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
+        </div>
+    </form>
+</body>
+</html>

@@ -4,18 +4,22 @@
     Author     : Klein
 --%>
 
+<%@page import="DAO.EquipmentDAO"%>
+<%@page import="Entity.Equipment"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Entity.LoggedUser"%>
 <%@page import="java.util.Date"%>
 <%@page import="Entity.Ticket"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>TicketUser</title>
     </head>
     <link href="CSS\ticketUser.css" rel="stylesheet">
     <script type="text/javascript" src="Js/AjaxFunctionUser.js"></script> 
+    <script language="JavaScript" src="Js/Validate.js"></script>
     <%@include file="Menu.jsp" %>
     <body>
 
@@ -39,7 +43,7 @@
 
         <h2>New Ticket</h2>
 
-        <form name='Ticketform' method='post' action='/HelpDesk/Action?param=saveTicketUser' onSubmit="return validateDataTicket();">
+        <form name='Ticketform' method='post' action='/HelpDesk/Action?param=saveTicketUser' onSubmit="return validateDataTicketUser();">
             <input type="hidden" name="id" value="<%= t.getId()%>">
             <input type="hidden" name="date" value="<%= t.getDate()%>">
             <input type="hidden" name="user_id" value="<%= t.getUser_id()%>">
@@ -57,7 +61,29 @@
             <br>
             <div>
                 <label for="Equipment">Equipment</label>
-                <input class="formInput" type='text' name='equipment_id' value='<%= t.getEquipment_id()%>'>
+                <!--<input class="formInput" type='text' name='equipment_id' value='<%= t.getEquipment_id()%>'>-->
+                <select name="equipmentId" id="equipmentId">
+                    <option value="Choose">Choose</option>
+                    <%
+                        ArrayList<Equipment> equipments = new EquipmentDAO().consultarTodos();
+
+                        for (int i = 0; i < equipments.size(); i++) {
+                    %>           
+                    <option value="<%= equipments.get(i).getId()%>"><%= equipments.get(i).getName()%></option>
+                    <%
+                        }
+
+                        if (t.getEquipment_id() != 0) {
+                    %>
+                    <script>
+                        function selectEquipment() {
+                            document.getElementById("equipmentId").selectedIndex
+                                    = "2";
+                        }
+                        selectEquipment();
+                    </script>
+                    <%}%>
+                </select>
             </div>
             <br>
             <div>

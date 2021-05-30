@@ -7,11 +7,11 @@
 <%@page import="Entity.LoggedUser"%>
 <%@page import="java.util.Date"%>
 <%@page import="Entity.Ticket"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO8859-1">
         <title>Suport Page</title>
     </head>
     <link href="CSS\ticketUser.css" rel="stylesheet">

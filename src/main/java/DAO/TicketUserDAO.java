@@ -151,7 +151,7 @@ public class TicketUserDAO implements IDAO<Ticket> {
                 sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
                         + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
                         + "ON t.user_id=u.id "
-                        + "WHERE status LIKE '%" + criteria + "%'"
+                        + "WHERE title LIKE '%" + criteria + "%'"
                         + "order by id";
             } else {
                 sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "

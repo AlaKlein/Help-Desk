@@ -12,7 +12,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Equipment CRUD</title>
-
         <script language="JavaScript" src="Js/Validate.js"></script>
     </head>
     <link href="CSS\equipment.css" rel="stylesheet">

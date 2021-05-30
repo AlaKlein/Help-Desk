@@ -119,6 +119,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
             String sql = "SELECT * "
                     + "FROM Equipment "
+                    + "WHERE status not like 'inactive' "
                     + "ORDER BY id";
 
             ResultSet result = st.executeQuery(sql);

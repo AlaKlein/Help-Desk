@@ -15,7 +15,8 @@ function loadPage(page) {
         };
 
         AjaxRequisition.open("POST", page, true);
-        AjaxRequisition.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        AjaxRequisition.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset:ISO8859-1')
+        //contentType:"application/x-javascript; charset:ISO-8859-1"
 
 
 

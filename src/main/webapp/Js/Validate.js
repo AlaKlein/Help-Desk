@@ -117,6 +117,81 @@ function validateDataEquipment() {
     }
 }
 
+function validateDataTicketUser() {
+    var error = 0;
+    title = document.Ticketform.title.value;
+    telephone = document.Ticketform.telephone.value;
+    equipmentId = document.Ticketform.equipmentId.value;
+    priority = document.Ticketform.priority.value;
+    description = document.Ticketform.description.value;
+
+    if (title.length < 5) {
+        document.Ticketform.title.style.backgroundColor = "yellow";
+        document.Ticketform.title.focus();
+        error++;
+    } else {
+        document.Ticketform.title.style.backgroundColor = "white";
+    }
+
+    if (telephone.length < 9) {
+        document.Ticketform.telephone.style.backgroundColor = "yellow";
+        document.Ticketform.telephone.focus();
+        error++;
+    } else {
+        document.Ticketform.telephone.style.backgroundColor = "white";
+    }
+
+    if (equipmentId === "Choose") {
+        document.Ticketform.equipmentId.style.backgroundColor = "yellow";
+        document.Ticketform.equipmentId.focus();
+        error++;
+    } else {
+        document.Ticketform.equipmentId.style.backgroundColor = "white";
+    }
+
+    if (priority === "Choose") {
+        document.Ticketform.priority.style.backgroundColor = "yellow";
+        document.Ticketform.priority.focus();
+        error++;
+    } else {
+        document.Ticketform.priority.style.backgroundColor = "white";
+    }
+
+    if (description.length < 1) {
+        document.Ticketform.description.style.backgroundColor = "yellow";
+        document.Ticketform.description.focus();
+        error++;
+    } else {
+        document.Ticketform.description.style.backgroundColor = "white";
+    }
+    if (error > 0) {
+        window.alert("Please review inserted data!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validateDataTicketItem() {
+    var error = 0;
+    descriptionItem = document.TicketItemform.descriptionItem.value;
+
+    if (descriptionItem.length < 5) {
+        document.TicketItemform.descriptionItem.style.backgroundColor = "yellow";
+        document.TicketItemform.descriptionItem.focus();
+        error++;
+    } else {
+        document.TicketItemform.descriptionItem.style.backgroundColor = "white";
+    }
+
+    if (error > 0) {
+        window.alert("Please review inserted data!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function validateDataLogin() {
     var error = 0;
     var pattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;

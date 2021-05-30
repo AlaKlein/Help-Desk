@@ -7,20 +7,10 @@
 <%@page import="DAO.TicketItemDAO"%>
 <%@page import="Entity.TicketItem"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>TicketItem</title>
     </head>
     <link href="CSS\ticketItem.css" rel="stylesheet">
@@ -30,7 +20,7 @@
 
         <br>
         <%
-            
+
             int ticket_id = (Integer.parseInt(request.getAttribute("ticketId").toString()));
             ArrayList<TicketItem> tkitems = new TicketItemDAO().consultarr(ticket_id);
         %>

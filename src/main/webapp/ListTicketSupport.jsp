@@ -4,15 +4,15 @@
     Author     : Klein
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO8859-1"%>
 <%@page import="Entity.Ticket"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.TicketSupportDAO"%>
 <!DOCTYPE html>
 <html>
      <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO8859-1">
         <title>Equipment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
@@ -43,12 +43,12 @@
             }
             
             if (finished.equals("false")) {
-                finished = "";
-            }else if (finished.equals("true")) {
                 finished = "finished";
+            }else if (finished.equals("true")) {
+                finished = "";
             }
             
-            System.out.println("dsadsa " + atendant);
+            System.out.println("dsadsa " + finished);
             
             ArrayList<Ticket> tickets = new TicketSupportDAO().consultarr(title, description, user, atendant, finished);
         %>
