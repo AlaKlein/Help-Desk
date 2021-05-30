@@ -54,7 +54,7 @@
             <a href="Equipment.jsp"><span class="glyphicon glyphicon glyphicon-hdd"></i> Equipment</a> 
             <a href="TicketUser.jsp"><span class="glyphicon glyphicon glyphicon-tag"></i> TicketUser</a>
             <a href="TicketSupport.jsp"><span class="glyphicon glyphicon glyphicon-tag"></i> TicketSupport</a>
-            <a href="EquipmentReport.jsp"><span class="glyphicon glyphicon-copy"></i> Report</a>
+            <a href="Reports.jsp"><span class="glyphicon glyphicon-copy"></i> Report</a>
             <a href="/HelpDesk/Action?param=logout"><span class="glyphicon glyphicon glyphicon-log-out"></i> Logout</a>
         </div>
 

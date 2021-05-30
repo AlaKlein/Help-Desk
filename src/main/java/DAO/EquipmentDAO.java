@@ -8,7 +8,6 @@ package DAO;
 import Useful.DBConection;
 import Useful.IDAO;
 import Entity.Equipment;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import static junit.framework.Assert.assertTrue;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
@@ -43,6 +41,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + " '" + eq.getVendor() + "',"
                     + " '" + eq.getSerialNumber() + "',"
                     + " '" + eq.getStatus() + "',"
+                    + " '" + eq.getIp()+ "',"
                     + " '" + eq.getUser_id() + "')";
 
             System.out.println("SQL: " + sql);
@@ -69,7 +68,8 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + "vendor = '" + eq.getVendor() + "', "
                     + "serial_number = '" + eq.getSerialNumber() + "', "
                     + "user_id = '" + eq.getUser_id() + "', "
-                    + "status = '" + eq.getStatus() + "' "
+                    + "status = '" + eq.getStatus() + "', "
+                    + "ip = '" + eq.getIp()+ "' "
                     + "WHERE id = " + eq.getId();
 
             System.out.println("SQL: " + sql);
@@ -134,6 +134,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                 eq.setVendor(result.getString("vendor"));
                 eq.setSerialNumber(result.getString("serial_number"));
                 eq.setStatus(result.getString("status"));
+                eq.setIp(result.getString("ip"));
 
                 equipments.add(eq);
             }
@@ -145,24 +146,32 @@ public class EquipmentDAO implements IDAO<Equipment> {
         return equipments;
     }
 
-    public ArrayList<Equipment> consultarr(String criteria, String inactive) {
+    public ArrayList<Equipment> consultarr(String id, String name, String vendor, String serial, String ip , String inactive) {
         ArrayList<Equipment> equipments = new ArrayList();
         String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
 
-            if (inactive.equals("inactives")) {
-
-                sql = "SELECT * "
+            sql = " SELECT * "
                         + "FROM equipment "
-                        + "WHERE name LIKE '%" + criteria + "%' "
-                        + "order by id";
-            } else {
-                sql = "SELECT * "
-                        + "FROM equipment "
-                        + "WHERE name LIKE '%" + criteria + "%' and status not like 'inactive' "
-                        + "order by id";
-            }
+                        + "WHERE id LIKE '%" + id + "%' AND name LIKE '%" + name + "%' AND vendor LIKE '%" + vendor + "%' AND serial_number LIKE '%" + serial + "%'"   
+                        + "AND ip LIKE '%" + ip + "%' "
+                        + "AND status NOT LIKE '%" + inactive + "%' "
+                        + "ORDER BY id";
+            
+            
+//            if (inactive.equals("inactives")) {
+//
+//                sql = "SELECT * "
+//                        + "FROM equipment "
+//                        + "WHERE name LIKE '%" + criteria + "%' "
+//                        + "order by id";
+//            } else {
+//                sql = "SELECT * "
+//                        + "FROM equipment "
+//                        + "WHERE name LIKE '%" + criteria + "%' and status not like 'inactive' "
+//                        + "order by id";
+//            }
             System.out.println("sql: " + sql);
 
             ResultSet result = st.executeQuery(sql);
@@ -177,6 +186,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                 eq.setVendor(result.getString("vendor"));
                 eq.setSerialNumber(result.getString("serial_number"));
                 eq.setStatus(result.getString("status"));
+                eq.setIp(result.getString("ip"));
                 eq.setUser_id(result.getInt("user_id"));
 
                 equipments.add(eq);
@@ -242,6 +252,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                 eq.setVendor(result.getString("vendor"));
                 eq.setSerialNumber(result.getString("serial_number"));
                 eq.setStatus(result.getString("status"));
+                eq.setIp(result.getString("ip"));
             }
 
         } catch (SQLException e) {
@@ -251,7 +262,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
         return eq;
     }
 
-    public byte[] generateReport() throws IOException, URISyntaxException {
+    public byte[] generateReport(String vendor) throws IOException, URISyntaxException {
         try {
             Connection conn = DBConection.getInstance().getConnection();
 
@@ -263,6 +274,9 @@ public class EquipmentDAO implements IDAO<Equipment> {
             JasperReport report = JasperCompileManager.compileReport(is);
 
             Map parameters = new HashMap();
+            
+             // adiciona parametros
+                        parameters.put("vendor", vendor);
 
             byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
             return bytes;

@@ -8,8 +8,17 @@ package DAO;
 import Useful.DBConection;
 import Useful.IDAO;
 import Entity.User;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -230,6 +239,29 @@ public class UserDAO implements IDAO<User> {
 
         return password;
     }
+     public byte[] generateReport() throws IOException, URISyntaxException {
+        try {
+            Connection conn = DBConection.getInstance().getConnection();
+
+            //funciona
+            // JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream("ListUser.jrxml");
+
+            JasperReport report = JasperCompileManager.compileReport(is);
+
+            Map parameters = new HashMap();
+            
+             // adiciona parametros
+
+            byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
+            return bytes;
+        } catch (JRException e) {
+            System.out.println("Error while generating report: " + e);
+        }
+        return null;
+    }
+    
 
     @Override
     public boolean registroUnico(User o) {

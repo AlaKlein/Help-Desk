@@ -4,6 +4,8 @@
     Author     : Klein
 --%>
 
+<%@page import="DAO.TicketItemDAO"%>
+<%@page import="DAO.TicketSupportDAO"%>
 <%@page import="DAO.EquipmentDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,9 +16,9 @@
     </head>
     <body>
         <%
-            String vendor = request.getParameter("vendor");
+            String ticket = request.getParameter("ticket");
 
-            byte[] bytes = new EquipmentDAO().generateReport(vendor);
+            byte[] bytes = new TicketItemDAO().generateReport(ticket);
 
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);

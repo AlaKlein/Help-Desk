@@ -17,59 +17,73 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="PieChartDataset" uuid="21b70311-b650-4678-a39c-887917366bf0"/>
-	<parameter name="vendor" class="java.lang.String"/>
+	<parameter name="atendant" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT id,
-	name,
-	model,
-	type,
-	vendor,
-	serial_number,
-	status
-FROM equipment e
-WHERE 
- vendor LIKE  $P{vendor}
-]]>
+		<![CDATA[SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u ON t.user_id=u.id WHERE t.atendant LIKE  $P{atendant}  ORDER BY id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
+	</field>
+	<field name="title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="title"/>
+		<property name="com.jaspersoft.studio.field.label" value="title"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="description"/>
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="priority" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="priority"/>
+		<property name="com.jaspersoft.studio.field.label" value="priority"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="name"/>
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="model" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="model"/>
-		<property name="com.jaspersoft.studio.field.label" value="model"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+	<field name="user_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="user_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="user_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="type" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="type"/>
-		<property name="com.jaspersoft.studio.field.label" value="type"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+	<field name="equipment_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="equipment_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="equipment_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="vendor" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="vendor"/>
-		<property name="com.jaspersoft.studio.field.label" value="vendor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+	<field name="telephone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="serial_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="serial_number"/>
-		<property name="com.jaspersoft.studio.field.label" value="serial_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+	<field name="date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="status" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="status"/>
 		<property name="com.jaspersoft.studio.field.label" value="status"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="equipment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
+	</field>
+	<field name="atendant" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="atendant"/>
+		<property name="com.jaspersoft.studio.field.label" value="atendant"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ticket"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<title>
 		<band height="40" splitType="Stretch">
@@ -81,7 +95,7 @@ WHERE
 					<textElement textAlignment="Center">
 						<font size="28" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Equipment Report]]></text>
+					<text><![CDATA[Ticket Report]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -115,7 +129,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Name]]></text>
+					<text><![CDATA[Description]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" positionType="Float" x="315" y="0" width="95" height="14" forecolor="#000000" uuid="3142ce6e-a771-4e3e-8728-c5d7705c27bb">
@@ -124,7 +138,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Model]]></text>
+					<text><![CDATA[Priority]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" positionType="Float" x="410" y="0" width="95" height="14" forecolor="#000000" uuid="b2943ccf-c750-4171-8099-ed11c413685d">
@@ -133,7 +147,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Type]]></text>
+					<text><![CDATA[User]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" positionType="Float" x="505" y="0" width="95" height="14" forecolor="#000000" uuid="cfdc4235-d29a-45e1-9cb5-23ae6007650e">
@@ -142,7 +156,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Vendor]]></text>
+					<text><![CDATA[Equipment]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" positionType="Float" x="600" y="0" width="120" height="14" forecolor="#000000" uuid="049be7af-bcb5-4eb1-ae94-e376ddd02747">
@@ -151,7 +165,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Serial Number]]></text>
+					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Column header" positionType="Float" x="720" y="0" width="80" height="14" forecolor="#000000" uuid="a431539c-94d0-42dc-adef-891432b17c3d">
@@ -160,7 +174,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Status]]></text>
+					<text><![CDATA[Atendant]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -197,7 +211,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="315" y="0" width="95" height="15" uuid="04d70265-de32-4f7f-a4ac-151c06e0a102">
@@ -212,7 +226,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{priority}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="410" y="0" width="95" height="15" uuid="b9fe7bd9-baf6-426a-9e40-05766108b812">
@@ -227,7 +241,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="505" y="0" width="95" height="15" uuid="d75ce237-d725-4ec5-868b-aba56dd04ff1">
@@ -242,7 +256,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{vendor}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{equipment_id}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="600" y="0" width="120" height="15" uuid="6a052f84-0e48-44c8-9285-62e64559748e">
@@ -257,7 +271,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{serial_number}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement style="Detail" positionType="Float" x="720" y="0" width="80" height="15" uuid="38239c5d-2d2a-450a-beb2-45fd36800466">
@@ -272,7 +286,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="false"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{atendant}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

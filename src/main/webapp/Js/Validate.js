@@ -59,6 +59,7 @@ function validateDataEquipment() {
     type = document.Equipmentform.type.value;
     vendor = document.Equipmentform.vendor.value;
     serialNumber = document.Equipmentform.serialNumber.value;
+    ipAddress = document.Equipmentform.ipAddress.value;
     statusEquipment = document.Equipmentform.status.value;
 
     if (nameEquipment.length < 5) {
@@ -85,7 +86,7 @@ function validateDataEquipment() {
         document.Equipmentform.type.style.backgroundColor = "white";
     }
 
-    if (vendor.length < 5) {
+    if (vendor.length < 4) {
         document.Equipmentform.vendor.style.backgroundColor = "yellow";
         document.Equipmentform.vendor.focus();
         error++;
@@ -99,6 +100,14 @@ function validateDataEquipment() {
         error++;
     } else {
         document.Equipmentform.serialNumber.style.backgroundColor = "white";
+    }
+
+    if (ipAddress.length < 15) {
+        document.Equipmentform.ipAddress.style.backgroundColor = "yellow";
+        document.Equipmentform.ipAddress.focus();
+        error++;
+    } else {
+        document.Equipmentform.ipAddress.style.backgroundColor = "white";
     }
 
     if (statusEquipment === "Choose") {
@@ -192,6 +201,65 @@ function validateDataTicketItem() {
     }
 }
 
+function validateDataReportEquipByVendor() {
+    var error = 0;
+    vendor = document.EquipByVendor.vendor.value;
+
+    if (vendor.length < 4) {
+        document.EquipByVendor.vendor.style.backgroundColor = "yellow";
+        document.EquipByVendor.vendor.focus();
+        error++;
+    } else {
+        document.EquipByVendor.vendor.style.backgroundColor = "white";
+    }
+
+    if (error > 0) {
+        window.alert("Please review inserted data!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validateDataReportTicketByAtendant() {
+    var error = 0;
+    atendant = document.TicketByAtendant.atendant.value;
+
+    if (atendant.length < 3) {
+        document.TicketByAtendant.atendant.style.backgroundColor = "yellow";
+        document.TicketByAtendant.atendant.focus();
+        error++;
+    } else {
+        document.TicketByAtendant.atendant.style.backgroundColor = "white";
+    }
+
+    if (error > 0) {
+        window.alert("Please review inserted data!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validateDataReportItemByTicket() {
+    var error = 0;
+    ticket = document.ItemByTicket.ticket.value;
+
+     if (ticket === "Choose") {
+        document.ItemByTicket.ticket.style.backgroundColor = "yellow";
+        document.ItemByTicket.ticket.focus();
+        error++;
+    } else {
+        document.ItemByTicket.ticket.style.backgroundColor = "white";
+    }
+
+    if (error > 0) {
+        window.alert("Please review inserted data!");
+        return false;
+    } else {
+        return true;
+    }
+}
 function validateDataLogin() {
     var error = 0;
     var pattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;

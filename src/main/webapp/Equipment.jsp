@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Equipment CRUD</title>
         <script language="JavaScript" src="Js/Validate.js"></script>
+        <script type="text/javascript" src="Js/AjaxFunctionEquipment.js"></script> 
     </head>
     <link href="CSS\equipment.css" rel="stylesheet">
     <%@include file="Menu.jsp" %>
@@ -30,6 +31,7 @@
                     eq.setType("");
                     eq.setVendor("");
                     eq.setSerialNumber("");
+                    eq.setIp("");
                     eq.setStatus("");
                     eq.setUser_id(0);
                 }
@@ -61,6 +63,11 @@
                 <div>
                     <label for="SerialNumber">Serial Number</label>
                     <input class="formInput" type='text' name='serialNumber' value='<%= eq.getSerialNumber()%>'>
+                </div>
+                <br>
+                <div>
+                    <label for="SerialNumber">IP Address</label>
+                    <input class="formInput" type='text' name='ipAddress' value='<%= eq.getIp()%>'>
                 </div>
                 <br>
                 <div>
@@ -96,14 +103,33 @@
                         <%}
                         %>
                     </select>
-
                     <input type="hidden" name="user_id" value="<%= LoggedUser.getId()%>">
                 </div>
+
                 <br>
                 <!--<input type='submit' value='Save'>-->
                 <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
             </form>
-            <%@include file="ListEquipment.jsp" %>
+            <br>
+
+            <!--<form method="post" action="/HelpDesk/Action?param=SearchBoxEquipment">-->
+            <form method="post" name="formequipment" action="javascript:loadPage('ListEquipment.jsp');">
+
+                <input type="text" name="id" placeholder="ID">
+                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="vendor" placeholder="Vendor">
+                <input type="text" name="serial" placeholder="SerialNumber">
+                <input type="text" name="ip" placeholder="IP Address">
+
+                <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
+                <input type="checkbox" id="checkboxcriteria" name="checkboxcriteria">List Inactive
+            </form>
+
+            
+            <div id="AjaxReturn">
+
+            </div>
+            <%--<%@include file="ListEquipment.jsp" %>--%>
         </div>
     </body>
 </html>

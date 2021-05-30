@@ -278,6 +278,7 @@ public class Action extends HttpServlet {
                 String vendor = request.getParameter("vendor");
                 String serialNumber = request.getParameter("serialNumber");
                 String status = request.getParameter("status");
+                String ipAddress = request.getParameter("ipAddress");
                 int user_id = Integer.parseInt(request.getParameter("user_id"));
 
                 Equipment eq = new Equipment();
@@ -289,6 +290,7 @@ public class Action extends HttpServlet {
                 eq.setVendor(vendor);
                 eq.setSerialNumber(serialNumber);
                 eq.setStatus(status);
+                eq.setIp(ipAddress);
                 eq.setUser_id(user_id);
 
                 //call save method and wait return
@@ -508,7 +510,34 @@ public class Action extends HttpServlet {
                 request.setAttribute("finished", finished);
                 forwardPage("TicketSupport.jsp", request, response);
             }
+            
+            if (param.equals("ReportEquipment")) {
+                String vendor = request.getParameter("vendor");
+                request.setAttribute("vendor", vendor);
+                forwardPage("EquipmentReport.jsp", request, response);
+            }
+            if (param.equals("TicketReport")) {
+                String vendor = request.getParameter("atendant");
+                request.setAttribute("atendant", vendor);
+                forwardPage("TicketReport.jsp", request, response);
+            }
 
+            if (param.equals("ListUsers")) {
+                forwardPage("UserReport.jsp", request, response);
+            }
+            
+             if (param.equals("TicketItemreport")) {
+                String ticket = request.getParameter("ticket");
+                request.setAttribute("ticket", ticket);
+                 System.out.println("aqui jas minha paciencia " + ticket);
+                forwardPage("TicketItemReport.jsp", request, response);
+            }
+              if (param.equals("ListTickets")) {
+                String ticket = request.getParameter("ticket");
+                request.setAttribute("ticket", ticket);
+                 System.out.println("aqui jas minha paciencia " + ticket);
+                forwardPage("TicketReport2.jsp", request, response);
+            }
         }
 
         /**

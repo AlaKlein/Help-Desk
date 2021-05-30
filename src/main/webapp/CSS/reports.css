@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 9 de abr. de 2021, 11:21:10
+    Author     : Klein
+*/
+
+label {
+    width:200px;
+    display:inline-block;
+}
+
+select{
+    min-height:25px;
+}
+
+.page {
+    /*top rigth bottom left*/
+    margin: 0px 0px 0px 5px;
+}
+
+.table-responsive {
+    margin: 0px 50px 0px 50px;
+}
+
+.formInput {
+    width: 20%;
+}
+
+.description {
+    width: 60%;
+    height: 60%
+}
+
+

@@ -17,6 +17,7 @@ public class Equipment {
     String model;
     String type;
     String serialNumber;
+    String ip;
     int user_id;
     String status;
 
@@ -84,4 +85,13 @@ public class Equipment {
         this.status = status;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    
 }

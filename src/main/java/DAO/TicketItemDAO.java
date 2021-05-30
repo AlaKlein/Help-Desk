@@ -5,13 +5,22 @@
  */
 package DAO;
 
-import Entity.Ticket;
 import Entity.TicketItem;
 import Useful.DBConection;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -228,6 +237,30 @@ public class TicketItemDAO {
         }
 
         return items;
+    }
+    
+     public byte[] generateReport(String ticket) throws IOException, URISyntaxException {
+        try {
+            Connection conn = DBConection.getInstance().getConnection();
+
+            //funciona
+            // JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream("TicketItem.jrxml");
+
+            JasperReport report = JasperCompileManager.compileReport(is);
+
+            Map parameters = new HashMap();
+
+            // adiciona parametros
+            parameters.put("ticketID", ticket);
+
+            byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
+            return bytes;
+        } catch (JRException e) {
+            System.out.println("Error while generating report: " + e);
+        }
+        return null;
     }
 
 }
