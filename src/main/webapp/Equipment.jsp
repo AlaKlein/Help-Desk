@@ -7,6 +7,11 @@
 <%@page contentType="text/html" pageEncoding="ISO8859-1"%>
 <%@page import="Entity.Equipment"%>
 <%@page import="javax.servlet.RequestDispatcher"%>
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.EquipmentChartDAO"%>
+<%@page import="Entity.EquipmentChart"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +19,16 @@
         <title>Equipment CRUD</title>
         <script language="JavaScript" src="Js/Validate.js"></script>
         <script type="text/javascript" src="Js/AjaxFunctionEquipment.js"></script> 
+
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/navbar.css" rel="stylesheet">
+
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     </head>
     <link href="CSS\equipment.css" rel="stylesheet">
     <%@include file="Menu.jsp" %>
@@ -37,6 +52,54 @@
                 }
             %>
             <h2>Add Equipment</h2>
+            <br>
+            <br>
+            <div id = "rightbox">
+                <div id="Chart"></div>
+            </div>
+
+            <script>
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(Chart);
+
+                function Chart() {
+
+                <%
+                    EquipmentChartDAO x = new EquipmentChartDAO();
+                    ArrayList<EquipmentChart> equip = x.consultarTodos();
+
+                    String Vendors = "[['Vendor', 'Quantity'],";
+
+                    for (int i = 0; i < equip.size(); i++) {
+                        EquipmentChart categ = equip.get(i);
+                        Vendors += "['" + categ.getVendor() + "', " + categ.getQtd() + "],\n";
+                    }
+
+                    Vendors += "]";
+
+                    System.out.println(Vendors);
+                %>
+
+                    var data = google.visualization.arrayToDataTable(<%= Vendors%>);
+
+                    var options = {
+                        chartArea: {
+                            height: '100%',
+                            width: '100%',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0
+                        },
+                        height: '100%',
+                        width: '100%',
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('Chart'));
+                    chart.draw(data, options);
+                }
+            </script>
+            <script src="js/bootstrap.bundle.min.js"></script>
 
             <form name='Equipmentform' method='post' action='/HelpDesk/Action?param=saveEquipment' onSubmit="return validateDataEquipment();">
                 <input type="hidden" name="id" value="<%= eq.getId()%>">
@@ -125,10 +188,12 @@
                 <input type="checkbox" id="checkboxcriteria" name="checkboxcriteria">List Inactive
             </form>
 
-            
+
             <div id="AjaxReturn">
 
             </div>
+
+
             <%--<%@include file="ListEquipment.jsp" %>--%>
         </div>
     </body>

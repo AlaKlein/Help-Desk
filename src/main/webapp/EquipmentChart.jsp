@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gráfico</title>
+        <title>Chart</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <link href="css/navbar.css" rel="stylesheet">
@@ -52,17 +52,15 @@
 
                 var data = google.visualization.arrayToDataTable(<%= Vendors%>);
 
-
                 var options = {
-                    title: 'Equipment Vendor Chart',
-                    chartArea: {width: '50%'},
-                    hAxis: {
-                        title: '',
-                        minValue: 0
+                    chartArea: {
+                        left: 40,
+                        width: '100%'
                     },
-                    vAxis: {
-                        title: ''
-                    }
+                    legend: {
+                        position: 'top'
+                    },
+                    width: '100%'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('Chart'));
