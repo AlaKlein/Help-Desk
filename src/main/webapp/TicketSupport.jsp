@@ -18,6 +18,11 @@
     <script type="text/javascript" src="Js/AjaxFunctionSupport.js"></script> 
     <%@include file="Menu.jsp" %>
     <body>
+          <Script>
+        window.onload = function(){
+        document.getElementById('search').click();
+    }
+        </script>
 
         <h2>Suport Page</h2>
 
@@ -30,7 +35,7 @@
             <input type="text" name="user" placeholder="User">
             <input type="text" name="atendant" placeholder="Atendant">
 
-            <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
+            <button type="submit" id='search' ><a class="glyphicon glyphicon glyphicon-search"></a></button>
 
             <input type="checkbox" id="checkboxcriteria" name="checkboxcriteria">List Finished
             

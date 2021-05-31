@@ -22,7 +22,12 @@
     <script language="JavaScript" src="Js/Validate.js"></script>
     <%@include file="Menu.jsp" %>
     <body>
-
+        <Script>
+        window.onload = function(){
+        document.getElementById('search').click();
+    }
+        </script>
+        
         <%
             Ticket t = (Ticket) request.getAttribute("objTicket");
 
@@ -143,8 +148,14 @@
                 <textarea class="formInput" name="description" rows="4" cols="50"><%= t.getDescription()%></textarea>
             </div>
             <br>
-            <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
+            <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved" onclick="myFunction()"></a></button>
         </form>
+
+        <script>
+            function myFunction() {
+                document.getElementById("search").click();
+            }
+        </script>
 
         <br>
         <!--<form method="post" action="/HelpDesk/Action?param=SearchBoxTicketUser">-->
@@ -153,7 +164,7 @@
             <input type="text" name="title" placeholder="Type here to search">
 
             <!--<input type="submit" value="Search"><br>-->
-            <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
+            <button type="submit" id='search' ><a class="glyphicon glyphicon glyphicon-search"></a></button>
 
 
             <input type="checkbox" id ="checkboxcriteria" name="checkboxcriteria">List Finished

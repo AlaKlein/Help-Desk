@@ -33,6 +33,11 @@
     <link href="CSS\equipment.css" rel="stylesheet">
     <%@include file="Menu.jsp" %>
     <body>
+        <Script>
+            window.onload = function () {
+                document.getElementById('search').click();
+            }
+        </script>
         <div class="page">
             <%
                 Equipment eq = (Equipment) request.getAttribute("objEquipment");
@@ -56,6 +61,8 @@
             <br>
             <div id = "rightbox">
                 <div id="Chart"></div>
+                <thead>
+                </thead>
             </div>
 
             <script>
@@ -83,6 +90,7 @@
                     var data = google.visualization.arrayToDataTable(<%= Vendors%>);
 
                     var options = {
+//                        title: 'Equipment Vendor',
                         chartArea: {
                             height: '100%',
                             width: '100%',
@@ -184,7 +192,7 @@
                 <input type="text" name="serial" placeholder="SerialNumber">
                 <input type="text" name="ip" placeholder="IP Address">
 
-                <button type="submit" ><a class="glyphicon glyphicon glyphicon-search"></a></button>
+                <button type="submit" id='search'><a class="glyphicon glyphicon glyphicon-search"></a></button>
                 <input type="checkbox" id="checkboxcriteria" name="checkboxcriteria">List Inactive
             </form>
 
