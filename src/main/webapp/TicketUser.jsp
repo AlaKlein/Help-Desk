@@ -56,7 +56,7 @@
             <br>
             <div>
                 <label for="Telephone">Telephone</label>
-                <input class="formInput" type='text' name='telephone' value='<%= t.getTelephone()%>'>
+                <input class="formInput" type='text' name='telephone' data-mask="(00) 00000-0000" value='<%= t.getTelephone()%>'>
             </div>
             <br>
             <div>

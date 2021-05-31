@@ -86,7 +86,7 @@ function validateDataEquipment() {
         document.Equipmentform.type.style.backgroundColor = "white";
     }
 
-    if (vendor.length < 4) {
+    if (vendor.length < 2) {
         document.Equipmentform.vendor.style.backgroundColor = "yellow";
         document.Equipmentform.vendor.focus();
         error++;
@@ -205,7 +205,7 @@ function validateDataReportEquipByVendor() {
     var error = 0;
     vendor = document.EquipByVendor.vendor.value;
 
-    if (vendor.length < 4) {
+    if (vendor.length < 2) {
         document.EquipByVendor.vendor.style.backgroundColor = "yellow";
         document.EquipByVendor.vendor.focus();
         error++;

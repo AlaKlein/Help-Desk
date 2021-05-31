@@ -45,5 +45,13 @@
                 <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>
         </div>
     </form>
+    <div>
+        <!--            <form name='TicketItemformStatus' method='get' action='/HelpDesk/Action?param=TicketItemformStatus'>
+                        <input type="hidden" name="ticket_id" value="<%= t.getTicket_id()%>">
+                        <label name="finish">Finish Ticket</label>
+                        <button type="submit" ><a class="glyphicon glyphicon glyphicon-floppy-saved"></a></button>-->
+        <td><a href="/HelpDesk/Action?param=TicketItemformStatus&ticket_id=<%= t.getTicket_id()%>"><span class="glyphicon glyphicon glyphicon-ok"></span>  Finish Ticket</a>
+    </div>
+</form>
 </body>
 </html>

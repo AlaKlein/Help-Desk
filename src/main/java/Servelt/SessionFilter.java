@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author pretto
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class SessionFilter extends HttpServlet implements Filter {
 
     List<String> urls = new ArrayList<>();
@@ -108,6 +108,12 @@ public class SessionFilter extends HttpServlet implements Filter {
         urls.add("/HelpDesk/CSS/signin.css");
         urls.add("/HelpDesk/Img/LoginLogo.png");
         urls.add("/HelpDesk/Js/Validate.js");
+        urls.add("/HelpDesk/Js/*");
+        urls.add("/HelpDesk/CSS/*");
+        urls.add("/HelpDesk/TicketUser/*");
+        urls.add("/HelpDesk/TicketSupport/*");
+        urls.add("/HelpDesk/TicketItem/*");
+        urls.add("/HelpDesk/TicketItem2/*");
     }
 
     @Override

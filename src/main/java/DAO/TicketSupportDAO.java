@@ -91,6 +91,60 @@ public class TicketSupportDAO implements IDAO<Ticket> {
 
         return output;
     }
+    
+    public String updateAtendant(int id, String user) {
+        String output = null;
+        try {
+            Statement stm = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "UPDATE ticket set "
+                    + "atendant = '" + user + "' "
+                    + "WHERE id = " + id;
+
+            System.out.println("SQL: " + sql);
+
+            int message = stm.executeUpdate(sql);
+
+            if (message != 0) {
+                output = null;
+            } else {
+                output = "Error";
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while updating Ticket! " + e);
+            output = e.toString();
+        }
+
+        return output;
+    }
+    
+    public String updateStatus(int id, String status) {
+        String output = null;
+        try {
+            Statement stm = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "UPDATE ticket set "
+                    + "status = '" + status + "' "
+                    + "WHERE id = " + id;
+
+            System.out.println("SQL: " + sql);
+
+            int message = stm.executeUpdate(sql);
+
+            if (message != 0) {
+                output = null;
+            } else {
+                output = "Error";
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while updating Ticket! " + e);
+            output = e.toString();
+        }
+
+        return output;
+    }
 
     @Override
     public String excluir(int id) {

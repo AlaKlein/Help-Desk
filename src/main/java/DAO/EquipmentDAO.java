@@ -41,8 +41,9 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + " '" + eq.getVendor() + "',"
                     + " '" + eq.getSerialNumber() + "',"
                     + " '" + eq.getStatus() + "',"
-                    + " '" + eq.getIp()+ "',"
-                    + " '" + eq.getUser_id() + "')";
+                    + " '" + eq.getUser_id() + "',"
+                    + " '" + eq.getIp() + "')";
+                    
 
             System.out.println("SQL: " + sql);
 
