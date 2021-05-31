@@ -82,7 +82,7 @@
                     <td><%= tk.getStatus()%></td>
                     <td><%= tk.getAtendant()%></td>
                     <!--<td><a href='/HelpDesk/Action?param=edTicket&id<%= tk.getId()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>-->
-                    <td><a href='/HelpDesk/Action?param=edTicketSupport&id=<%= tk.getId()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>
+                    <td><a href='/HelpDesk/Action?param=edTicketSupport&id=<%= tk.getId()%>&desc=<%= tk.getDescription()%>'><span class="glyphicon glyphicon glyphicon-edit"></a></td>
                 </tr>
                 <%
                     }

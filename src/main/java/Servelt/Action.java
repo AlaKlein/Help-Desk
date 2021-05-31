@@ -154,11 +154,29 @@ public class Action extends HttpServlet {
         // ================= TicketSupport ======================================
         if (param.equals("edTicketSupport")) {
             String id = request.getParameter("id");
+            String desc =  request.getParameter("desc");
             System.out.println("TicketID to edit: " + id);
             Integer ticket_id = Integer.parseInt(id);
-            new TicketSupportDAO().updateAtendant(Integer.parseInt(id), LoggedUser.getEmail());
+            
             if (id != null) {
                 request.setAttribute("ticketId", ticket_id);
+                request.setAttribute("desc", desc);
+
+                forwardPage("ListTicketItem.jsp", request, response);
+            } else {
+                forwardPage("Error.jsp", request, response);
+            }
+        }
+        
+         if (param.equals("edTicketSupport2")) {
+            String id = request.getParameter("id");
+            String desc =  request.getParameter("desc");
+            System.out.println("TicketID to edit: " + id);
+            Integer ticket_id = Integer.parseInt(id);
+            
+            if (id != null) {
+                request.setAttribute("ticketId", ticket_id);
+                request.setAttribute("desc", desc);
 
                 forwardPage("ListTicketItem.jsp", request, response);
             } else {
@@ -404,6 +422,7 @@ public class Action extends HttpServlet {
             }
 
             if (ret == null) {
+                new TicketSupportDAO().updateAtendant(Integer.parseInt(request.getParameter("ticket_id")), LoggedUser.getEmail());
                 // OK
                 request.setAttribute("objTicketItem", t);
                 request.setAttribute("ticketId", ticket_id);

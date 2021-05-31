@@ -8,6 +8,7 @@ package DAO;
 import Useful.DBConection;
 import Useful.IDAO;
 import Entity.Ticket;
+import Useful.Format;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -98,7 +99,8 @@ public class TicketSupportDAO implements IDAO<Ticket> {
             Statement stm = DBConection.getInstance().getConnection().createStatement();
 
             String sql = "UPDATE ticket set "
-                    + "atendant = '" + user + "' "
+                    + "atendant = '" + user + "', "
+                    + "status = 'In Progress' "
                     + "WHERE id = " + id;
 
             System.out.println("SQL: " + sql);
@@ -232,7 +234,8 @@ public class TicketSupportDAO implements IDAO<Ticket> {
                 t.setUser_name(result.getString("name"));
                 t.setEquipment_id(result.getInt("equipment_id"));
                 t.setTelephone(result.getString("telephone"));
-                t.setDate(result.getString("date"));
+                String d = Format.adjustDate(result.getString("date"));
+                t.setDate(d);
                 t.setStatus(result.getString("status"));
                 t.setAtendant(result.getString("atendant"));
 

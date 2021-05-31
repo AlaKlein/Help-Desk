@@ -16,14 +16,19 @@
     <link href="CSS\ticketItem.css" rel="stylesheet">
     <%@include file="Menu.jsp" %>
     <body>
-
-
+        
+<!--        
+        //<% //String s = request.getAttribute("desc").toString(); %>
+        <label for="User">Ticket Descriprion: <%//=s%></label>
+        <br>
         <br>
         <%
-
             int ticket_id = (Integer.parseInt(request.getAttribute("ticketId").toString()));
             ArrayList<TicketItem> tkitems = new TicketItemDAO().consultarr(ticket_id);
         %>
+        -->
+        
+        
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <th>Id</th>

@@ -7,6 +7,7 @@ package DAO;
 
 import Entity.TicketItem;
 import Useful.DBConection;
+import Useful.Format;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -124,7 +125,8 @@ public class TicketItemDAO {
 
                 t.setId(result.getInt("id"));
                 t.setDescription_item(result.getString("description_item"));
-                t.setDate(result.getString("date"));
+                String d = Format.adjustDate(result.getString("date"));
+                t.setDate(d);
                 t.setAtendant(result.getString("atendant"));
                 t.setTicket_id(result.getInt("ticket_id"));
             }
@@ -163,7 +165,8 @@ public class TicketItemDAO {
 
                 t.setId(result.getInt("id"));
                 t.setDescription_item(result.getString("description_item"));
-                t.setDate(result.getString("date"));
+                String d = Format.adjustDate(result.getString("date"));
+                t.setDate(d);
                 t.setAtendant(result.getString("atendant"));
                 t.setTicket_id(result.getInt("ticket_id"));
             }
@@ -225,7 +228,8 @@ public class TicketItemDAO {
 
                 t.setId(result.getInt("id"));
                 t.setDescription_item(result.getString("description_item"));
-                t.setDate(result.getString("date"));
+                String d = Format.adjustDate(result.getString("date"));
+                t.setDate(d);
                 t.setAtendant(result.getString("atendant"));
                 t.setTicket_id(result.getInt("ticket_id"));
 

@@ -168,4 +168,19 @@ public class Format {
         String currentTime = sdf.format(dt);
         return currentTime;
     }
+
+    public static String adjustDate2(String data) {
+        String dataFormatada = null;
+        try {
+            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(data);
+            dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return (dataFormatada);
+    }
+
+    public static String adjustDate(String str) {
+         return str.substring(0, str.length() - 5);
+    }
 }
