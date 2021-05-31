@@ -140,7 +140,7 @@ public class TicketUserDAO implements IDAO<Ticket> {
         return tickets;
     }
 
-    public ArrayList<Ticket> consultarr(String criteria, String inactive) {
+    public ArrayList<Ticket> consultarr(String criteria, String inactive, int userID) {
         ArrayList<Ticket> tickets = new ArrayList();
         String sql = "";
         try {
@@ -151,13 +151,13 @@ public class TicketUserDAO implements IDAO<Ticket> {
                 sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
                         + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
                         + "ON t.user_id=u.id "
-                        + "WHERE title LIKE '%" + criteria + "%'"
+                        + "WHERE title LIKE '%" + criteria + "%' AND t.user_id = " + userID + " "
                         + "order by id";
             } else {
                 sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
                         + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
                         + "ON t.user_id=u.id "
-                        + "WHERE title LIKE '%" + criteria + "%' and t.status not like 'finished' "
+                        + "WHERE title LIKE '%" + criteria + "%' and t.status not like 'finished' AND t.user_id = " + userID + " "
                         + "order by id";
             }
             System.out.println("sql: " + sql);

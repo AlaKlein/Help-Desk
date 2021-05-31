@@ -194,7 +194,7 @@ public class Action extends HttpServlet {
             } else {
                 forwardPage("Error.jsp", request, response);
             }
-        
+
         } else if (param.equals("TicketItemformStatus")) {
             String tkid = request.getParameter("ticket_id");
             if (tkid != null) {
@@ -334,8 +334,8 @@ public class Action extends HttpServlet {
             String status = request.getParameter("status");
             //String status = "Open";
             String priority = request.getParameter("priority");
-            //String atendant = request.getParameter("atendant");
-            String atendant = LoggedUser.getEmail();
+            String atendant = "";
+            //String atendant = LoggedUser.getEmail();
 
             Ticket t = new Ticket();
 
@@ -350,8 +350,9 @@ public class Action extends HttpServlet {
             t.setDate(date);
             if (status.equals("")) {
                 t.setStatus("Open");
+            } else {
+                t.setStatus(status);
             }
-            t.setStatus(status);
             t.setAtendant(atendant);
 
             //call save method and wait return

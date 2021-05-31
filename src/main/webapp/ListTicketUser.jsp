@@ -20,7 +20,7 @@
     <link href="CSS\equipment.css" rel="stylesheet">
     <body>
         <h2>Ticket Listing</h2>
-        
+
         <br>
         <%
             String criteria = request.getParameter("title");
@@ -30,12 +30,12 @@
             }
             if (finished.equals("false")) {
                 finished = "";
-            }else if (finished.equals("true")) {
+            } else if (finished.equals("true")) {
                 finished = "finished";
             }
             System.out.println("aquiiiii " + criteria);
             System.out.println("inativos " + finished);
-            ArrayList<Ticket> tickets = new TicketUserDAO().consultarr(criteria, finished);
+            ArrayList<Ticket> tickets = new TicketUserDAO().consultarr(criteria, finished, LoggedUser.getId());
         %>
         <div class="table-responsive">
             <table class="table table-striped table-sm">
