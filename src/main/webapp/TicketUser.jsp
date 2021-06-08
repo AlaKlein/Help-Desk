@@ -54,6 +54,7 @@
             <input type="hidden" name="user_id" value="<%= t.getUser_id()%>">
             <input type="hidden" name="atendant" value="<%= t.getAtendant()%>">
             <input type="hidden" name="status" value="<%= t.getStatus()%>">
+            <input type="hidden" name="equipment_id" value="<%= t.getEquipment_id()%>">
             <div>
                 <label for="Title">Title</label>
                 <input class="formInput" type='text' name='title' value='<%= t.getTitle()%>'>
@@ -80,10 +81,21 @@
 
                         if (t.getEquipment_id() != 0) {
                     %>
-                    <script>
+                   
+                    <%
+                        ArrayList<Equipment> equipments2 = new EquipmentDAO().consultarEquip(t.getEquipment_id());
+
+                        for (int i = 0; i < equipments2.size(); i++) {
+                    %>   
+                    
+                    <input type="hidden" name="equipment_name" id="equipment_name" value="<%= equipments2.get(i).getId()%>">
+                    <%}%>
+                    
+                    <script type="text/javascript">
                         function selectEquipment() {
-                            document.getElementById("equipmentId").selectedIndex
-                                    = "2";
+                            var a = document.getElementById("equipment_name");
+                            document.getElementById("equipmentId").value = a.value;
+
                         }
                         selectEquipment();
                     </script>

@@ -146,6 +146,39 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
         return equipments;
     }
+    
+    public ArrayList<Equipment> consultarEquip(int tkID) {
+
+        ArrayList<Equipment> equipments = new ArrayList();
+
+        try {
+            Statement st = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT t.id AS tkID, e.id, e.name, e.status "
+                    + "FROM equipment e JOIN ticket t "
+                    +"ON e.id=t.equipment_id "
+                    + "WHERE e.status not like 'inactive' AND e.id = '" + tkID + "' " 
+                    + "ORDER BY id";
+
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + sql);
+            
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                Equipment eq = new Equipment();
+
+                eq.setId(result.getInt("id"));
+                eq.setName(result.getString("name"));
+
+                equipments.add(eq);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while listing Equipments: " + e);
+        }
+
+        return equipments;
+    }
 
     public ArrayList<Equipment> consultarr(String id, String name, String vendor, String serial, String ip , String inactive) {
         ArrayList<Equipment> equipments = new ArrayList();
