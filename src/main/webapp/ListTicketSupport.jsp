@@ -26,6 +26,11 @@
             String user = request.getParameter("user");
             String atendant = request.getParameter("atendant");
             String finished = request.getParameter("checkboxcriteria");
+            String initialdate = request.getParameter("initialdate");
+            String finaldate = request.getParameter("finaldate");
+            String initialdate2 = initialdate + " 00:00:00";
+            String finaldate2 = finaldate + " 23:59:59";
+            
             if (title == null) {
                 title = "";
             }
@@ -41,6 +46,12 @@
             if (finished == null) {
                 finished = "";
             }
+             if (initialdate == "") {
+                initialdate2 = "";
+            }
+              if (finaldate == "") {
+                finaldate2 = "";
+            }
             
             if (finished.equals("false")) {
                 finished = "finished";
@@ -48,9 +59,10 @@
                 finished = "";
             }
             
-            System.out.println("dsadsa " + finished);
+            System.out.println("InitialDate " + initialdate2);
+            System.out.println("FinalDate " + finaldate2);
             
-            ArrayList<Ticket> tickets = new TicketSupportDAO().consultarr(title, description, user, atendant, finished);
+            ArrayList<Ticket> tickets = new TicketSupportDAO().consultarr(title, description, user, atendant, finished, initialdate2, finaldate2);
         %>
         <div class="table-responsive">
             <table class="table table-striped table-sm">

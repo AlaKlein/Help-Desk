@@ -18,10 +18,10 @@
     <script type="text/javascript" src="Js/AjaxFunctionSupport.js"></script> 
     <%@include file="Menu.jsp" %>
     <body>
-          <Script>
-        window.onload = function(){
-        document.getElementById('search').click();
-    }
+        <Script>
+            window.onload = function () {
+                document.getElementById('search').click();
+            }
         </script>
 
         <h2>Suport Page</h2>
@@ -29,17 +29,19 @@
         <!--<form method="post" action="/HelpDesk/Action?param=SearchBoxTicketSupport">-->
         <form method="post" name="formsupport" action="javascript:loadPage('ListTicketSupport.jsp');">
 
-            
+
             <input type="text" name="title" placeholder="Title">
             <input type="text" name="description" placeholder="Description">
             <input type="text" name="user" placeholder="User">
             <input type="text" name="atendant" placeholder="Atendant">
+            <input class="date" placeholder="Initial Date" class="textbox-n" type="text" onfocus="this.type = 'date'" name="initialdate", id="initialdate">
+            <input class="date" placeholder="Final Date" class="textbox-n" type="text" onfocus="(this.type = 'date')" name="finaldate", id="finaldate">
 
             <button type="submit" id='search' ><a class="glyphicon glyphicon glyphicon-search"></a></button>
-
+            <input type="reset" value="Reset">
             <input type="checkbox" id="checkboxcriteria" name="checkboxcriteria">List Finished
-            
-            
+
+
         </form>
 
         <br>

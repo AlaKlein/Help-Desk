@@ -204,21 +204,59 @@ public class TicketSupportDAO implements IDAO<Ticket> {
 
         return tickets;
     }
+    
+     public ArrayList<Ticket> consultarAtendant() {
 
-    public ArrayList<Ticket> consultarr(String title, String description, String user, String atendant, String finished) {
+        ArrayList<Ticket> tickets = new ArrayList();
+
+        try {
+            Statement st = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT DISTINCT(atendant) "
+                    + "FROM ticket "
+                    + "WHERE atendant NOT LIKE '' ";
+
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                Ticket t = new Ticket();
+
+                t.setAtendant(result.getString("atendant"));
+
+                tickets.add(t);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while listing Tickets: " + e);
+        }
+
+        return tickets;
+    }
+
+    public ArrayList<Ticket> consultarr(String title, String description, String user, String atendant, String finished, String initialdate, String finaldate) {
         ArrayList<Ticket> tickets = new ArrayList();
         String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
 
-            sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
+            if (initialdate.isEmpty() && finaldate.isEmpty()) {
+                 sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
                     + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
                     + "ON t.user_id=u.id "
                     + "WHERE t.title LIKE '%" + title + "%' AND t.description LIKE '%" + description + "%' "
                     + "AND t.atendant LIKE '%" + atendant + "%' AND u.name LIKE '%" + user + "%' "
                     + "AND t.status not like '" + finished + "' "
                     + "ORDER BY id";
-
+            }else{
+                sql = "SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, "
+                    + "t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u "
+                    + "ON t.user_id=u.id "
+                    + "WHERE t.title LIKE '%" + title + "%' AND t.description LIKE '%" + description + "%' "
+                    + "AND t.atendant LIKE '%" + atendant + "%' AND u.name LIKE '%" + user + "%' "
+                    + "AND t.status not like '" + finished + "' AND date BETWEEN '" + initialdate + "' AND '" + finaldate + "' "
+                    + "ORDER BY id";
+            }
+            
             System.out.println("sql: " + sql);
 
             ResultSet result = st.executeQuery(sql);
@@ -352,6 +390,31 @@ public class TicketSupportDAO implements IDAO<Ticket> {
             Map parameters = new HashMap();
 
             // adiciona parametros
+
+            byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
+            return bytes;
+        } catch (JRException e) {
+            System.out.println("Error while generating report: " + e);
+        }
+        return null;
+    }
+    
+     public byte[] generateReportTicketByDate(String initialdate, String finaldate) throws IOException, URISyntaxException {
+        try {
+            Connection conn = DBConection.getInstance().getConnection();
+
+            //funciona
+            // JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream("TicketSupportDate.jrxml");
+
+            JasperReport report = JasperCompileManager.compileReport(is);
+
+            Map parameters = new HashMap();
+
+            // adiciona parametros
+            parameters.put("initialdate", initialdate);
+            parameters.put("finaldate", finaldate);
 
             byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
             return bytes;

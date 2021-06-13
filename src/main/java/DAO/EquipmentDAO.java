@@ -43,7 +43,6 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + " '" + eq.getStatus() + "',"
                     + " '" + eq.getUser_id() + "',"
                     + " '" + eq.getIp() + "')";
-                    
 
             System.out.println("SQL: " + sql);
 
@@ -70,7 +69,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + "serial_number = '" + eq.getSerialNumber() + "', "
                     + "user_id = '" + eq.getUser_id() + "', "
                     + "status = '" + eq.getStatus() + "', "
-                    + "ip = '" + eq.getIp()+ "' "
+                    + "ip = '" + eq.getIp() + "' "
                     + "WHERE id = " + eq.getId();
 
             System.out.println("SQL: " + sql);
@@ -146,7 +145,7 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
         return equipments;
     }
-    
+
     public ArrayList<Equipment> consultarEquip(int tkID) {
 
         ArrayList<Equipment> equipments = new ArrayList();
@@ -156,12 +155,12 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
             String sql = "SELECT t.id AS tkID, e.id, e.name, e.status "
                     + "FROM equipment e JOIN ticket t "
-                    +"ON e.id=t.equipment_id "
-                    + "WHERE e.status not like 'inactive' AND e.id = '" + tkID + "' " 
+                    + "ON e.id=t.equipment_id "
+                    + "WHERE e.status not like 'inactive' AND e.id = '" + tkID + "' "
                     + "ORDER BY id";
 
             System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + sql);
-            
+
             ResultSet result = st.executeQuery(sql);
 
             while (result.next()) {
@@ -180,20 +179,81 @@ public class EquipmentDAO implements IDAO<Equipment> {
         return equipments;
     }
 
-    public ArrayList<Equipment> consultarr(String id, String name, String vendor, String serial, String ip , String inactive) {
+    public ArrayList<Equipment> consultarVendor(int id) {
+
+        ArrayList<Equipment> equipments = new ArrayList();
+
+        try {
+            Statement st = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT * "
+                    + "FROM equipment "
+                    + "WHERE status not like 'inactive' AND id= '" + id + "' "
+                    + "ORDER BY id";
+
+             System.out.println("Vendor cadastrado " + sql);
+            
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                Equipment eq = new Equipment();
+                
+                eq.setId(result.getInt("id"));
+                eq.setVendor(result.getString("vendor"));
+
+                equipments.add(eq);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while listing Equipments: " + e);
+        }
+
+        return equipments;
+    }
+
+    public ArrayList<Equipment> consultarVendors() {
+
+        ArrayList<Equipment> equipments = new ArrayList();
+
+        try {
+            Statement st = DBConection.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT DISTINCT(vendor) "
+                    + "FROM equipment "
+                    + "WHERE status not like 'inactive' ";
+            
+             System.out.println("Vendors " + sql);
+
+            ResultSet result = st.executeQuery(sql);
+
+            while (result.next()) {
+                Equipment eq = new Equipment();
+
+                eq.setVendor(result.getString("vendor"));
+
+                equipments.add(eq);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error while listing Vendors: " + e);
+        }
+
+        return equipments;
+    }
+
+    public ArrayList<Equipment> consultarr(String id, String name, String vendor, String serial, String ip, String inactive) {
         ArrayList<Equipment> equipments = new ArrayList();
         String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
 
             sql = " SELECT * "
-                        + "FROM equipment "
-                        + "WHERE id LIKE '%" + id + "%' AND name LIKE '%" + name + "%' AND vendor LIKE '%" + vendor + "%' AND serial_number LIKE '%" + serial + "%'"   
-                        + "AND ip LIKE '%" + ip + "%' "
-                        + "AND status NOT LIKE '%" + inactive + "%' "
-                        + "ORDER BY id";
-            
-            
+                    + "FROM equipment "
+                    + "WHERE id LIKE '%" + id + "%' AND name LIKE '%" + name + "%' AND vendor LIKE '%" + vendor + "%' AND serial_number LIKE '%" + serial + "%'"
+                    + "AND ip LIKE '%" + ip + "%' "
+                    + "AND status NOT LIKE '%" + inactive + "%' "
+                    + "ORDER BY id";
+
 //            if (inactive.equals("inactives")) {
 //
 //                sql = "SELECT * "
@@ -232,17 +292,17 @@ public class EquipmentDAO implements IDAO<Equipment> {
 
         return equipments;
     }
-    
-     public ArrayList<Equipment> consultarChart() {
+
+    public ArrayList<Equipment> consultarChart() {
         ArrayList<Equipment> equipments = new ArrayList();
         String sql = "";
         try {
             Statement st = DBConection.getInstance().getConnection().createStatement();
 
-                sql = "SELECT e.vendor "
-                        + "FROM equipment e "
-                        + "WHERE id=1 "
-                        + "order by id";
+            sql = "SELECT e.vendor "
+                    + "FROM equipment e "
+                    + "WHERE id=1 "
+                    + "order by id";
             System.out.println("sql: " + sql);
 
             ResultSet result = st.executeQuery(sql);
@@ -308,9 +368,9 @@ public class EquipmentDAO implements IDAO<Equipment> {
             JasperReport report = JasperCompileManager.compileReport(is);
 
             Map parameters = new HashMap();
-            
-             // adiciona parametros
-                        parameters.put("vendor", vendor);
+
+            // adiciona parametros
+            parameters.put("vendor", vendor);
 
             byte[] bytes = JasperRunManager.runReportToPdf(report, parameters, conn);
             return bytes;

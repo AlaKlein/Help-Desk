@@ -513,7 +513,14 @@ public class Action extends HttpServlet {
             request.setAttribute("atendant", vendor);
             forwardPage("TicketReport.jsp", request, response);
         }
-
+        if (param.equals("TicketByDate")) {
+            String initialdate = request.getParameter("initialdate");
+            String finaldate = request.getParameter("finaldate");
+            request.setAttribute("initialdate", initialdate);
+            request.setAttribute("finaldate", finaldate);
+            
+            forwardPage("TicketReportByDate.jsp", request, response);
+        }
         if (param.equals("ListUsers")) {
             forwardPage("UserReport.jsp", request, response);
         }

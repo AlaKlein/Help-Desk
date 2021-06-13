@@ -126,10 +126,61 @@
                     <input class="formInput" type='text' name='type' value='<%= eq.getType()%>'>
                 </div>
                 <br>
+                <!--                <div>
+                                    <label for="Vendor">Vendor</label>
+                                    <input class="formInput" type='text' name='vendor' value='<%= eq.getVendor()%>'>
+                                </div>-->
                 <div>
                     <label for="Vendor">Vendor</label>
-                    <input class="formInput" type='text' name='vendor' value='<%= eq.getVendor()%>'>
+                    <select name="vendor" id="vendor">
+                        <option value="Choose">Choose</option>
+                        <option value="Dell">Dell</option>
+                        <option value="HP">HP</option>
+                        <option value="Lenovo">Lenovo</option>
+                        <option value="Acer">Acer</option>
+
+                        <%
+                            if (eq.getVendor().equals("Dell")) {
+                        %>
+                        <script>
+                            function selectDell() {
+                                document.getElementById("vendor").selectedIndex
+                                        = "1";
+                            }
+                            selectDell();
+                        </script>
+                        <%} else if (eq.getVendor().equals("HP")) {
+                        %>
+                        <script>
+                            function selectHP() {
+                                document.getElementById("vendor").selectedIndex
+                                        = "2";
+                            }
+                            selectHP();
+                        </script>
+                        <%} else if (eq.getVendor().equals("Lenovo")) {
+                        %>
+                        <script>
+                            function selectLenovo() {
+                                document.getElementById("vendor").selectedIndex
+                                        = "3";
+                            }
+                            selectLenovo();
+                        </script>
+                        <%} else if (eq.getVendor().equals("Acer")) {
+                        %>
+                        <script>
+                            function selectAcer() {
+                                document.getElementById("vendor").selectedIndex
+                                        = "4";
+                            }
+                            selectAcer();
+                        </script>
+                        <%}
+                        %>
+                    </select>
                 </div>
+
                 <br>
                 <div>
                     <label for="SerialNumber">Serial Number</label>

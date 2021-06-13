@@ -17,9 +17,25 @@
 		</conditionalStyle>
 	</style>
 	<subDataset name="PieChartDataset" uuid="21b70311-b650-4678-a39c-887917366bf0"/>
-	<parameter name="atendant" class="java.lang.String"/>
+	<parameter name="initialdate" class="java.lang.String"/>
+	<parameter name="finaldate" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT t.id, t.title, t.description, t.priority, u.name, t.user_id, t.equipment_id, t.telephone, t.date, t.status, t.atendant FROM ticket t JOIN user u ON t.user_id=u.id WHERE t.atendant LIKE  $P{atendant}  ORDER BY id]]>
+		<![CDATA[SELECT t.id,
+	t.title,
+	t.description,
+	t.priority,
+	u.name,
+	t.user_id,
+	t.equipment_id,
+	t.telephone,
+	t.date,
+	t.status,
+	t.atendant
+FROM ticket t
+	JOIN user u ON 
+	 u.id = t.user_id
+	 WHERE date BETWEEN   $P{initialdate} AND  $P{finaldate} 
+ORDER BY date]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>

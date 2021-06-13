@@ -25,9 +25,11 @@ function loadPage(page) {
         var param3 = form.user.value;
         var param4 = form.atendant.value;
         var param5 = form.checkboxcriteria.checked;
-        
+        var param6 = form.initialdate.value;
+        var param7 = form.finaldate.value;
 
-        qstr = 'title=' + escape(param1) + "&description=" + escape(param2) + "&user=" + escape(param3) + "&atendant=" + escape(param4) + "&checkboxcriteria=" + escape(param5);
+        qstr = 'title=' + escape(param1) + "&description=" + escape(param2) + "&user=" + escape(param3) + "&atendant=" + escape(param4)
+                + "&checkboxcriteria=" + escape(param5) + "&initialdate=" + escape(param6) + "&finaldate=" + escape(param7);
 
 
         AjaxRequisition.send(qstr);

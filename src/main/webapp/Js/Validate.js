@@ -86,7 +86,7 @@ function validateDataEquipment() {
         document.Equipmentform.type.style.backgroundColor = "white";
     }
 
-    if (vendor.length < 2) {
+    if (vendor === "Choose") {
         document.Equipmentform.vendor.style.backgroundColor = "yellow";
         document.Equipmentform.vendor.focus();
         error++;
@@ -205,7 +205,7 @@ function validateDataReportEquipByVendor() {
     var error = 0;
     vendor = document.EquipByVendor.vendor.value;
 
-    if (vendor.length < 2) {
+    if (vendor === "Choose") {
         document.EquipByVendor.vendor.style.backgroundColor = "yellow";
         document.EquipByVendor.vendor.focus();
         error++;
@@ -225,13 +225,14 @@ function validateDataReportTicketByAtendant() {
     var error = 0;
     atendant = document.TicketByAtendant.atendant.value;
 
-    if (atendant.length < 3) {
+    if (atendant === "Choose") {
         document.TicketByAtendant.atendant.style.backgroundColor = "yellow";
         document.TicketByAtendant.atendant.focus();
         error++;
     } else {
         document.TicketByAtendant.atendant.style.backgroundColor = "white";
     }
+    
 
     if (error > 0) {
         window.alert("Please review inserted data!");
@@ -251,6 +252,35 @@ function validateDataReportItemByTicket() {
         error++;
     } else {
         document.ItemByTicket.ticket.style.backgroundColor = "white";
+    }
+
+    if (error > 0) {
+        window.alert("Please review inserted data!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validateDataReportTicketByDate() {
+    var error = 0;
+    initialdate = document.TicketByDate.initialdate.value;
+    finaldate = document.TicketByDate.finaldate.value;
+
+     if (initialdate === "") {
+        document.TicketByDate.initialdate.style.backgroundColor = "yellow";
+        document.TicketByDate.initialdate.focus();
+        error++;
+    } else {
+        document.TicketByDate.initialdate.style.backgroundColor = "white";
+    }
+    
+     if (finaldate === "") {
+        document.TicketByDate.finaldate.style.backgroundColor = "yellow";
+        document.TicketByDate.finaldate.focus();
+        error++;
+    } else {
+        document.TicketByDate.finaldate.style.backgroundColor = "white";
     }
 
     if (error > 0) {
