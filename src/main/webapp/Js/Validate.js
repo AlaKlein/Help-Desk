@@ -232,7 +232,7 @@ function validateDataReportTicketByAtendant() {
     } else {
         document.TicketByAtendant.atendant.style.backgroundColor = "white";
     }
-    
+
 
     if (error > 0) {
         window.alert("Please review inserted data!");
@@ -246,7 +246,7 @@ function validateDataReportItemByTicket() {
     var error = 0;
     ticket = document.ItemByTicket.ticket.value;
 
-     if (ticket === "Choose") {
+    if (ticket === "Choose") {
         document.ItemByTicket.ticket.style.backgroundColor = "yellow";
         document.ItemByTicket.ticket.focus();
         error++;
@@ -262,29 +262,60 @@ function validateDataReportItemByTicket() {
     }
 }
 
+function validadeDateTicketSupport() {
+    var dateerror = 0;
+    initialdate = document.formsupport.initialdate.value;
+    finaldate = document.formsupport.finaldate.value;
+    const date1 = new Date(initialdate);
+    const date2 = new Date(finaldate);
+    if (date1 > date2) {
+        document.formsupport.initialdate.style.backgroundColor = "yellow";
+        document.formsupport.finaldate.style.backgroundColor = "yellow";
+        dateerror++;
+    } else {
+        document.formsupport.initialdate.style.backgroundColor = "white";
+        document.formsupport.finaldate.style.backgroundColor = "white";
+    }
+    if (dateerror > 0) {
+        window.alert("Final date is greater than initial date!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function validateDataReportTicketByDate() {
     var error = 0;
+    var dateerror = 0;
     initialdate = document.TicketByDate.initialdate.value;
     finaldate = document.TicketByDate.finaldate.value;
+    const date1 = new Date(initialdate);
+    const date2 = new Date(finaldate);
 
-     if (initialdate === "") {
+    if (initialdate === "") {
         document.TicketByDate.initialdate.style.backgroundColor = "yellow";
+        document.TicketByDate.finaldate.style.backgroundColor = "white";
         document.TicketByDate.initialdate.focus();
         error++;
-    } else {
+    } else if (finaldate === "") {
         document.TicketByDate.initialdate.style.backgroundColor = "white";
-    }
-    
-     if (finaldate === "") {
         document.TicketByDate.finaldate.style.backgroundColor = "yellow";
         document.TicketByDate.finaldate.focus();
         error++;
+    } else if (date1 > date2) {
+        document.TicketByDate.initialdate.style.backgroundColor = "yellow";
+        document.TicketByDate.finaldate.style.backgroundColor = "yellow";
+        dateerror++;
     } else {
+        document.TicketByDate.initialdate.style.backgroundColor = "white";
         document.TicketByDate.finaldate.style.backgroundColor = "white";
     }
 
     if (error > 0) {
         window.alert("Please review inserted data!");
+        return false;
+    } else if (dateerror > 0) {
+        window.alert("Final date is greater than initial date!");
         return false;
     } else {
         return true;

@@ -12,6 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO8859-1">
+        <script language="JavaScript" src="Js/Validate.js"></script>
         <title>Suport Page</title>
     </head>
     <link href="CSS\ticketUser.css" rel="stylesheet">
@@ -27,7 +28,7 @@
         <h2>Suport Page</h2>
 
         <!--<form method="post" action="/HelpDesk/Action?param=SearchBoxTicketSupport">-->
-        <form method="post" name="formsupport" action="javascript:loadPage('ListTicketSupport.jsp');">
+        <form method="post" name="formsupport" onSubmit="return validadeDateTicketSupport();" action="javascript:loadPage('ListTicketSupport.jsp');">
 
 
             <input type="text" name="title" placeholder="Title">
