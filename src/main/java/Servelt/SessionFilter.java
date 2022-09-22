@@ -9,7 +9,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.Filter;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+/*import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -19,8 +32,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.HttpSession;*/
 /**
  *
  * @author pretto
@@ -42,7 +54,7 @@ public class SessionFilter extends HttpServlet implements Filter {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -110,10 +122,10 @@ public class SessionFilter extends HttpServlet implements Filter {
         urls.add("/HelpDesk/Js/Validate.js");
         urls.add("/HelpDesk/Js/*");
         urls.add("/HelpDesk/CSS/*");
-        urls.add("/HelpDesk/TicketUser/*");
-        urls.add("/HelpDesk/TicketSupport/*");
-        urls.add("/HelpDesk/TicketItem/*");
-        urls.add("/HelpDesk/TicketItem2/*");
+        //urls.add("/HelpDesk/TicketUser/*");
+        //urls.add("/HelpDesk/TicketSupport/*");
+        //urls.add("/HelpDesk/TicketItem/*");
+        //urls.add("/HelpDesk/TicketItem2/*");
     }
 
     @Override

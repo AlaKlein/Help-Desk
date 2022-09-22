@@ -6,7 +6,7 @@
 <%@page import="Entity.LoggedUser"%>
 <%@page contentType="text/html" pageEncoding="ISO8859-1"%>
 <%@page import="Entity.Equipment"%>
-<%@page import="javax.servlet.RequestDispatcher"%>
+<%--<%@page import="javax.servlet.RequestDispatcher"%>--%>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.EquipmentChartDAO"%>
