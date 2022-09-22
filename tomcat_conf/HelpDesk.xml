@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context docBase="C:\Users\Klein\Documents\NetBeansProjects\Help-Desk\target\HelpDesk-1.0" path="/HelpDesk"/>
+<Context docBase="/usr/local/help-desk" path="/HelpDesk"/>
