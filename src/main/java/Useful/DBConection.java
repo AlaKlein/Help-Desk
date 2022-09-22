@@ -21,7 +21,7 @@ public class DBConection {
             // Carrega informações do arquivo de propriedades
             String dbdriver = "org.mariadb.jdbc.Driver";
             String dburl = "jdbc:mariadb://localhost:3306/TicketSystem";
-            String dbuser = "root";
+            String dbuser = "admin";
             String dbsenha = "admin";
 
             // Carrega Driver do Banco de Dados
