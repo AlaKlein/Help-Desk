@@ -246,7 +246,8 @@ public class UserDAO implements IDAO<User> {
             //funciona
             // JasperReport report = JasperCompileManager.compileReport("C:\\Users\\Klein\\Documents\\NetBeansProjects\\HelpDesk\\src\\main\\java\\Reports\\Equipment.jrxml");
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream is = classloader.getResourceAsStream("ListUser.jrxml");
+            //InputStream is = classloader.getResourceAsStream("ListUser.jrxml");
+            InputStream is = classloader.getResourceAsStream("/WEB-INF/classes/ListUser.jrxml");
 
             JasperReport report = JasperCompileManager.compileReport(is);
 
