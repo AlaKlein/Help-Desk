@@ -38,9 +38,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
-
-
 /**
  *
  * @author Klein
@@ -59,7 +56,7 @@ public class Action extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -129,8 +126,9 @@ public class Action extends HttpServlet {
             String id = request.getParameter("id");
             Equipment equip = new EquipmentDAO().consultarId(Integer.parseInt(id));
             System.out.println("ID to delete: " + id);
+
             if (equip != null) {
-                new EquipmentDAO().excluir(Integer.parseInt(id));
+                new EquipmentDAO().excluirNovo(Integer.parseInt(id));
                 forwardPage("Equipment.jsp", request, response);
             } else {
                 forwardPage("Error.jsp", request, response);
@@ -164,10 +162,10 @@ public class Action extends HttpServlet {
         // ================= TicketSupport ======================================
         if (param.equals("edTicketSupport")) {
             String id = request.getParameter("id");
-            String desc =  request.getParameter("desc");
+            String desc = request.getParameter("desc");
             System.out.println("TicketID to edit: " + id);
             Integer ticket_id = Integer.parseInt(id);
-            
+
             if (id != null) {
                 request.setAttribute("ticketId", ticket_id);
                 request.setAttribute("desc", desc);
@@ -177,13 +175,13 @@ public class Action extends HttpServlet {
                 forwardPage("Error.jsp", request, response);
             }
         }
-        
-         if (param.equals("edTicketSupport2")) {
+
+        if (param.equals("edTicketSupport2")) {
             String id = request.getParameter("id");
-            String desc =  request.getParameter("desc");
+            String desc = request.getParameter("desc");
             System.out.println("TicketID to edit: " + id);
             Integer ticket_id = Integer.parseInt(id);
-            
+
             if (id != null) {
                 request.setAttribute("ticketId", ticket_id);
                 request.setAttribute("desc", desc);
@@ -528,7 +526,7 @@ public class Action extends HttpServlet {
             String finaldate = request.getParameter("finaldate");
             request.setAttribute("initialdate", initialdate);
             request.setAttribute("finaldate", finaldate);
-            
+
             forwardPage("TicketReportByDate.jsp", request, response);
         }
         if (param.equals("ListUsers")) {

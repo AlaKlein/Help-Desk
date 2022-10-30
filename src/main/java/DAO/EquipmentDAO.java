@@ -90,23 +90,45 @@ public class EquipmentDAO implements IDAO<Equipment> {
         return output;
     }
 
-    @Override
-    public String excluir(int id) {
+    public String excluirNovo(int id) {
+        String output = null;
         try {
             Statement stm = DBConection.getInstance().getConnection().createStatement();
 
-            String sql = "DELETE FROM equipment WHERE id = "
-                    + id;
-
+            String sql = "UPDATE equipment "
+                    + "SET status = 'inactive' "
+                    + "WHERE id = " + id;
             System.out.println("SQL: " + sql);
 
-            stm.executeUpdate(sql);
+            int message = stm.executeUpdate(sql);
 
-            return null;
+            if (message != 0) {
+                output = null;
+            } else {
+                output = "Error";
+            }
+
         } catch (SQLException e) {
-            System.out.println("Error while deleting Equipment: " + e);
-            return e.toString();
+            System.out.println("Error while updating Equipment! " + e);
+            output = e.toString();
+
+//        try {
+//            Statement stm = DBConection.getInstance().getConnection().createStatement();
+//
+//            String sql = "DELETE FROM equipment WHERE id = "
+//                    + id;
+//
+//            System.out.println("SQL: " + sql);
+//
+//            stm.executeUpdate(sql);
+//
+//            return null;
+//        } catch (SQLException e) {
+//            System.out.println("Error while deleting Equipment: " + e);
+//            return e.toString();
+//        }
         }
+        return output;
     }
 
     @Override
@@ -191,13 +213,13 @@ public class EquipmentDAO implements IDAO<Equipment> {
                     + "WHERE status not like 'inactive' AND id= '" + id + "' "
                     + "ORDER BY id";
 
-             System.out.println("Vendor cadastrado " + sql);
-            
+            System.out.println("Vendor cadastrado " + sql);
+
             ResultSet result = st.executeQuery(sql);
 
             while (result.next()) {
                 Equipment eq = new Equipment();
-                
+
                 eq.setId(result.getInt("id"));
                 eq.setVendor(result.getString("vendor"));
 
@@ -221,8 +243,8 @@ public class EquipmentDAO implements IDAO<Equipment> {
             String sql = "SELECT DISTINCT(vendor) "
                     + "FROM equipment "
                     + "WHERE status not like 'inactive' ";
-            
-             System.out.println("Vendors " + sql);
+
+            System.out.println("Vendors " + sql);
 
             ResultSet result = st.executeQuery(sql);
 
@@ -393,5 +415,10 @@ public class EquipmentDAO implements IDAO<Equipment> {
     @Override
     public ArrayList<Equipment> consultar(String criterio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String excluir(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
