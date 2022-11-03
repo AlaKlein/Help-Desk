@@ -56,7 +56,7 @@
                     eq.setUser_id(0);
                 }
             %>
-            <h2>Add Equipment</h2>
+            <h2>Add Equipment-AEHOOO</h2>
             <br>
             <br>
             <div id = "rightbox">
