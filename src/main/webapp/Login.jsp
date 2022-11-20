@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login to Help desk</title>
+        <title>Login to HelpDesk</title>
 
         <script language="JavaScript" src="Js/Validate.js"></script>
         <!-- Bootstrap core CSS -->
@@ -36,7 +36,7 @@
 
         <main class="form-signin">
             <form name='Loginform' method='post' action="/HelpDesk/Action?param=login"' onSubmit="return validateDataLogin();">
-                <h2>Help desk</h2>
+                <h2>HelpDesk</h2>
                 <img class="mb-4" src="Img/LoginLogo.png" alt="" width="126" height="126">
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
